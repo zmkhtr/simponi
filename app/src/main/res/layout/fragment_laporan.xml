@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UI.MainActivity.FragmentTab.LaporanFragment">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/buttonPack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/buttonLaporanAnak"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/anak"
+            android:textColor="#fff"
+            android:layout_margin="10dp"
+            android:background="@drawable/rectangle_blue"
+            android:textAllCaps="false"/>
+        <Button
+            android:id="@+id/buttonLaporanPosyandu"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_margin="10dp"
+            android:textColor="#000"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rectangle_white_login"
+            android:text="@string/posyandu"
+            android:textAllCaps="false"/>
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@+id/buttonPack">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="4"
+            android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/searchLaporanTanggal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_margin="@dimen/_10sdp"
+            style="@style/Widget.AppCompat.SearchView"
+            android:inputType="date"
+            android:clickable="true"
+            android:editable="false"
+            android:focusable="false"
+            android:background="@drawable/rectangle_search"
+            android:hint="@string/pilih_tanggal"
+            android:drawableStart="@drawable/ic_today"
+            android:padding="10dp"
+            android:drawableLeft="@drawable/ic_today" />
+        <EditText
+            android:id="@+id/searchLaporanNamaAnak"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_margin="@dimen/_10sdp"
+            style="@style/Widget.AppCompat.SearchView"
+            android:inputType="text"
+            android:background="@drawable/rectangle_search"
+            android:drawableStart="@drawable/ic_search"
+            android:hint="@string/ketik_nama_anak"
+            android:drawableLeft="@drawable/ic_search"
+            android:padding="10dp"/>
+
+        </RelativeLayout>
+        <Button
+            android:id="@+id/btnLaporanSearch"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rectangle_blue"
+            android:layout_margin="@dimen/_10sdp"
+            android:textColor="#fff"
+            android:text="@string/cari"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+</FrameLayout>

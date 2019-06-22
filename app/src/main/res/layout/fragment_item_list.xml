@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:name="com.sipemandu.sipemandu.ItemFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/layoutKolomSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_weight="4"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/searchListTanggal"
+            android:layout_below="@+id/buttonPack"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_margin="@dimen/_10sdp"
+            style="@style/Widget.AppCompat.SearchView"
+            android:inputType="date"
+            android:clickable="true"
+            android:editable="false"
+            android:focusable="false"
+            android:background="@drawable/rectangle_search"
+            android:hint="@string/pilih_tanggal"
+            android:drawableStart="@drawable/ic_today"
+            android:padding="10dp"
+            android:drawableLeft="@drawable/ic_today" />
+        <EditText
+            android:id="@+id/searchListNamaAnak"
+            android:layout_below="@+id/buttonPack"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_margin="@dimen/_10sdp"
+            style="@style/Widget.AppCompat.SearchView"
+            android:inputType="text"
+            android:background="@drawable/rectangle_search"
+            android:drawableStart="@drawable/ic_search"
+            android:hint="@string/ketik_nama_anak"
+            android:drawableLeft="@drawable/ic_search"
+            android:padding="10dp"/>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btnListSearch"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rectangle_blue"
+        android:layout_margin="@dimen/_10sdp"
+        android:textColor="#fff"
+        android:text="@string/cari"/>
+
+    </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@+id/layoutKolomSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/recyclerListData"/>
+
+    <ProgressBar
+        android:id="@+id/pbItemListLoading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"/>
+
+</RelativeLayout>

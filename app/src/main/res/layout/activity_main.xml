@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewMain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+            <ImageView
+                android:contentDescription="@string/account_logo"
+                android:id="@+id/imageProfile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_admin_96"
+                android:layout_centerVertical="true"
+                android:padding="10dp"
+                />
+            <TextView
+                android:id="@+id/textMainEmail"
+                android:layout_toRightOf="@+id/imageProfile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/imageProfile"
+                android:text="@string/app_name"
+                android:padding="10dp"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginStart="@dimen/_10sdp" />
+
+            <Button
+                android:id="@+id/btnMainLogout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textMainEmail"
+                android:layout_alignParentEnd="true"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:background="@drawable/rectangle_blue"
+                android:text="@string/keluar"
+                android:textColor="#fff"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_alignParentRight="true" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tablayoutMain"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_100sdp"
+        app:tabIndicatorGravity="top"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        app:tabIndicatorFullWidth="false"
+        android:layout_below="@id/cardViewMain"/>
+
+    <View
+        android:id="@+id/separator"
+        android:layout_below="@+id/tablayoutMain"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="10dp"
+        android:background="@color/grey"
+        />
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/container"
+        android:layout_below="@+id/separator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <ProgressBar
+        android:id="@+id/progresBarMain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:layout_centerInParent="true"/>
+
+</RelativeLayout>

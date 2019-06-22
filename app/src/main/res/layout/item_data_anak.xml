@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="15dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginRight="15dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="9"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="10dp">
+
+        <TextView
+            android:id="@+id/textItemAnakNamaAnak"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/nama_anak"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/nik"
+            android:textColor="@color/blueGreen" />
+
+        <TextView
+            android:id="@+id/textItemAnakNik"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/_123124832978"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/tanggal_lahir"
+            android:textColor="@color/blueGreen" />
+
+        <TextView
+            android:id="@+id/textItemAnakTanggalLahir"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/_2019_10_10"
+            android:textColor="@color/black" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/blueGreen"
+            android:text="@string/jenis_kelamin"/>
+
+        <TextView
+            android:id="@+id/textItemAnakJenisKelamin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="@string/laki_laki"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/berat_badan"
+            android:textColor="@color/blueGreen" />
+
+        <TextView
+            android:id="@+id/textItemAnakBeratBadan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/_40_kg"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/tinggi_badan"
+            android:textColor="@color/blueGreen" />
+
+        <TextView
+            android:id="@+id/textItemAnakTinggiBadan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/_150_cm"
+            android:textColor="@color/black" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/blueGreen"
+            android:text="@string/asi_eksklusif"/>
+
+        <TextView
+            android:id="@+id/textItemAnakAsiEks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="@string/ya"/>
+    </LinearLayout>
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_right_arrow"
+            android:contentDescription="@string/clickable" />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

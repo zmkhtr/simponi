@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/bottom_nav_pendaftaran"
+        android:icon="@drawable/ic_registration_grey_24dp"
+        android:title="Pendaftaran"
+        app:showAsAction="ifRoom" />
+    <item android:id="@+id/bottom_nav_posyandu"
+        android:icon="@drawable/ic_posyandu_grey_24dp"
+        android:title="Posyandu"
+        app:showAsAction="ifRoom"/>
+    <item android:id="@+id/bottom_nav_laporan"
+        android:icon="@drawable/ic_report_grey_24dp"
+        android:title="Laporan"
+        app:showAsAction="ifRoom"/>
+</menu>
