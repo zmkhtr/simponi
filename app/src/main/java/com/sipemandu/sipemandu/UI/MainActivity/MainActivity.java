@@ -68,8 +68,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         if (nfcAdapter == null) {
-            Toasty.error(this, "No NFC", Toast.LENGTH_SHORT,true).show();
-            return;
+            Toasty.error(this, "No NFC", Toast.LENGTH_SHORT, true).show();
         }
 
         pendingIntent = PendingIntent.getActivity(this, 0,
@@ -79,7 +78,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         setTab();
         setEmailView();
         logout();
-
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -177,14 +175,17 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     protected void onPause() {
         super.onPause();
         // disabling foreground dispatch:
-        NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
-        nfcAdapter.disableForegroundDispatch(this);
+        if (nfcAdapter != null) {
+            if (nfcAdapter.isEnabled())
+                nfcAdapter = NfcAdapter.getDefaultAdapter(this);
+            nfcAdapter.disableForegroundDispatch(this);
+        }
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        presenter.onNFCScanned(intent,context);
+        presenter.onNFCScanned(intent, context);
     }
 
     @Override
@@ -229,19 +230,19 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         intent.putExtra(EXTRA_SEARCH, sessionManager.getNFC());
         startActivity(intent);
         Log.d(TAG, "onSuccess: showdata");
-        Toasty.success(context, message, Toast.LENGTH_SHORT,true).show();
+        Toasty.success(context, message, Toast.LENGTH_SHORT, true).show();
 
     }
 
     @Override
     public void onNFCError(Throwable e) {
         Log.e(TAG, "onNFCError: ", e);
-        Toasty.warning(context, "Pastikan anda terhubung dengan internet", Toast.LENGTH_SHORT,true).show();
+        Toasty.warning(context, "Pastikan anda terhubung dengan internet", Toast.LENGTH_SHORT, true).show();
     }
 
     @Override
     public void onNFCErrorServer(Throwable e) {
         Log.e(TAG, "onNFCErrorServer: ", e);
-        Toasty.error(context, "Terdapat kesalahan pada server", Toast.LENGTH_SHORT,true).show();
+        Toasty.error(context, "Terdapat kesalahan pada server", Toast.LENGTH_SHORT, true).show();
     }
 }

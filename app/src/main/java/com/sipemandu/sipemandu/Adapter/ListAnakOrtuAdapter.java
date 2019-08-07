@@ -41,7 +41,27 @@ public class ListAnakOrtuAdapter extends RecyclerView.Adapter<ListAnakOrtuAdapte
         holder.tanggalLahir.setText(dataAnakOrtu.getTanggalLahir());
         holder.beratBadan.setText(String.valueOf(dataAnakOrtu.getBbLahir()));
         holder.tinggiBadan.setText(String.valueOf(dataAnakOrtu.getTbLahir()));
-        holder.nikAnak.setText(dataAnakOrtu.getNikAnak());
+
+        String nikAnak = dataAnakOrtu.getNikAnak();     //input string
+        String kodeNik;     //substring containing first 4 characters
+        String wilayahNik;
+        if (nikAnak.length() > 4)
+        {
+            kodeNik = nikAnak.substring(0, 4);
+        }
+        else
+        {
+            kodeNik = nikAnak;
+        }
+
+        if (kodeNik.equals("3276")){
+            wilayahNik = dataAnakOrtu.getNikAnak() + " - Depok";
+            holder.nikAnak.setText(wilayahNik);
+        } else {
+            wilayahNik = dataAnakOrtu.getNikAnak() + " - Luar Depok";
+            holder.nikAnak.setText(wilayahNik);
+        }
+
         if (dataAnakOrtu.isAsiEkslusif().equals("1")){
             holder.asiEksklusif.setText("Ya");
         } else {

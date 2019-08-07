@@ -128,12 +128,14 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
     }
 
     @Override
-    public void onLoginErrorFalse(String token) {
+    public void onLoginErrorFalse(String token, String name) {
         Log.d(TAG, "onLoginErrorFalse: init");
         sessionManager.setLogin(true, token);
-        sessionManager.setUserEmail(mEmail.getText().toString());
+        sessionManager.setUserEmail(name);
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
+
 
 }

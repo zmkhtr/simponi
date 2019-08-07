@@ -1,12 +1,9 @@
 package com.sipemandu.sipemandu.Utils;
 
 public class URLs {
-
-    public static final String BASE_URL = "http://si-pemandu.fiqihfahrulrozi.web.id/api";
-
+    public static final String BASE_URL = "http://simponi.id/api";
     public static final String END_POINT_LOGIN = "/login";
     //field : email, password
-
     public static final String END_POINT_DAFTAR = "/daftar";
     //field : no_nfc, nik, nama_ortu, tgl_lahir_ortu, nik_anak, nama_anak, jenis_kelamin, tgl_lahir_anak, bb_lahir, tb_lahir, asi_external
     public static final String END_POINT_SEARCH_KTP = "/searchKTP/"; // + {no_nfc}

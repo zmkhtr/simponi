@@ -9,7 +9,7 @@ public interface LoginContract {
         void onLoginSuccess(String message);
         void onLoginError(String message);
         void onLoginErrorTrue(String message);
-        void onLoginErrorFalse(String token);
+        void onLoginErrorFalse(String token, String name);
     }
 
     interface GetLoginInteractor{
@@ -17,7 +17,7 @@ public interface LoginContract {
             void onSuccess(JSONObject jsonObject);
             void onError(Throwable e);
             void onErrorTrue(String message);
-            void onErrorFalse(String token);
+            void onErrorFalse(String token, String name);
         }
         void getLoginProceed(OnFinishedListener onFinishedListener, String email, String password);
     }

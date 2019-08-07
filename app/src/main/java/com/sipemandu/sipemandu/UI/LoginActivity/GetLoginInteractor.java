@@ -42,7 +42,8 @@ public class GetLoginInteractor implements LoginContract.GetLoginInteractor {
                                 onFinishedListener.onErrorTrue(jsonObject.getString("error_msg"));
                             } else if (error.equals("false")) {
                                 String token = jsonObject.getJSONObject("user").getString("token");
-                                onFinishedListener.onErrorFalse(token);
+                                String name = jsonObject.getJSONObject("user").getString("nama_posyandu");
+                                onFinishedListener.onErrorFalse(token, name);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

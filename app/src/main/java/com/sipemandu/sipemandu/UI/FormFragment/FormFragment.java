@@ -26,6 +26,8 @@ import com.rx2androidnetworking.Rx2AndroidNetworking;
 import com.sipemandu.sipemandu.Adapter.ListAnakAdapter;
 import com.sipemandu.sipemandu.R;
 import com.sipemandu.sipemandu.Room.Model.DataAnak;
+import com.sipemandu.sipemandu.UI.BlankContainer.BlankActivity;
+import com.sipemandu.sipemandu.UI.ItemFragment.ItemFragment;
 import com.sipemandu.sipemandu.UI.TambahAnakFragment.TambahAnakFragment;
 import com.sipemandu.sipemandu.UI.UpdateFragment.UpdateFragment;
 import com.sipemandu.sipemandu.Utils.URLs;
@@ -68,9 +70,12 @@ public class FormFragment extends Fragment {
         // Inflate the layout for this fragment
         mContext = view.getContext();
         sessionManager = new SessionManager(mContext);
-        adapter.clearList(dataAnak);
+
+        readData();
+
         return view;
     }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -106,6 +111,7 @@ public class FormFragment extends Fragment {
                         .setPositiveButton("Sudah", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 getActivity().onBackPressed();
+                                getActivity().finish();
                             }
                         })
                         .setNegativeButton("Belum", new DialogInterface.OnClickListener() {
@@ -143,9 +149,10 @@ public class FormFragment extends Fragment {
     }
 
     private void bottomDialogFragment(){
-
-        TambahAnakFragment myDiag = new TambahAnakFragment();
-        myDiag.show(getFragmentManager().beginTransaction().addToBackStack("TambahAnakFragment"), "TambahAnakFragment");
+//        TambahAnakFragment myDiag = new TambahAnakFragment();
+        getFragmentManager().beginTransaction().addToBackStack("FormFragment").hide(this);
+        getFragmentManager().beginTransaction().addToBackStack("TambahAnakFragment").replace(R.id.blankContainer, new TambahAnakFragment()).commit();
+//        myDiag.show(getFragmentManager().beginTransaction().addToBackStack("TambahAnakFragment"), "TambahAnakFragment");
     }
 
     private void readData(){
@@ -257,6 +264,7 @@ public class FormFragment extends Fragment {
         super.onPause();
         Log.d(TAG, "onPause: start");
         adapter.clearList(dataAnak);
+        readData();
     }
 
     @Override
@@ -287,6 +295,8 @@ public class FormFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         Log.d(TAG, "onDestroyView: start");
+        adapter.clearList(dataAnak);
+        readData();
     }
 
     @Override
@@ -294,11 +304,14 @@ public class FormFragment extends Fragment {
         super.onDetach();
         Log.d(TAG, "onDetach: start");
         adapter.clearList(dataAnak);
+        readData();
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        adapter.clearList(dataAnak);
     }
+
+
+
 }

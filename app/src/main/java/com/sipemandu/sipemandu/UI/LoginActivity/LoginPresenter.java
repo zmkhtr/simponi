@@ -59,11 +59,13 @@ public class LoginPresenter implements LoginContract.Presenter,LoginContract.Get
     }
 
     @Override
-    public void onErrorFalse(String message) {
+    public void onErrorFalse(String token, String name) {
         if (loginView != null) {
-            loginView.onLoginErrorFalse(message);
+            loginView.onLoginErrorFalse(token, name);
             loginView.hideProgressBar();
         }
     }
+
+
 
 }

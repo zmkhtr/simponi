@@ -2,6 +2,7 @@ package com.sipemandu.sipemandu.UI.TambahAnakFragment;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -25,6 +26,7 @@ import android.widget.Toast;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.rx2androidnetworking.Rx2AndroidNetworking;
 import com.sipemandu.sipemandu.R;
+import com.sipemandu.sipemandu.UI.MainActivity.MainActivity;
 import com.sipemandu.sipemandu.Utils.URLs;
 import com.sipemandu.sipemandu.Utils.SessionManager;
 
@@ -33,6 +35,7 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import es.dmoral.toasty.Toasty;
 import io.reactivex.SingleObserver;
@@ -40,9 +43,11 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 
 
-public class TambahAnakFragment extends DialogFragment {
+public class TambahAnakFragment extends Fragment {
     private static final String TAG = "TambahAnakFragment";
 
     private SessionManager sessionManager;
@@ -169,6 +174,16 @@ public class TambahAnakFragment extends DialogFragment {
     }
 
     private void sendData(String asi) {
+        final ProgressDialog dialog = ProgressDialog.show(getContext(), "Menambah data anak",
+                "Loading. Mohon tunggu...", true);
+        dialog.show();
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(interceptor)
+                .retryOnConnectionFailure(true)
+                .connectTimeout(15, TimeUnit.SECONDS)
+                .build();
         Rx2AndroidNetworking.post(URLs.BASE_URL + URLs.END_POINT_DAFTAR)
                 .addHeaders("Authorization", "Bearer " + sessionManager.getUserToken())
                 .addBodyParameter("no_nfc", sessionManager.getNFC())
@@ -182,6 +197,7 @@ public class TambahAnakFragment extends DialogFragment {
                 .addBodyParameter("bb_lahir", mBeratBadan.getText().toString())
                 .addBodyParameter("tb_lahir", mTinggiBadan.getText().toString())
                 .addBodyParameter("asi_external", asi)
+                .setOkHttpClient(client)
                 .build()
                 .getJSONObjectSingle()
                 .subscribeOn(Schedulers.io())
@@ -200,13 +216,18 @@ public class TambahAnakFragment extends DialogFragment {
                                 Toasty.success(mContext, "Berhasil tambah data", Toast.LENGTH_SHORT, true).show();
                                 getFragmentManager().popBackStack();
                                 removeValue();
+                                dialog.dismiss();
                             } else {
                                 Toasty.error(mContext, "Gagal tambah data", Toast.LENGTH_SHORT, true).show();
+
+                                dialog.dismiss();
                             }
                         } catch (Exception e) {
                             Log.e(TAG, "onSuccess: ", e);
                             e.printStackTrace();
                             Toasty.error(mContext, "Server Error.", Toast.LENGTH_SHORT, true).show();
+
+                            dialog.dismiss();
                         }
                     }
 
@@ -216,6 +237,8 @@ public class TambahAnakFragment extends DialogFragment {
                         Log.e(TAG, "onError: ", e);
                         Log.e(TAG, "onError: ", e.getCause());
                         Toasty.warning(mContext, "Pastikan anda terhubung dengan internet.", Toast.LENGTH_SHORT, true).show();
+
+                        dialog.dismiss();
                     }
                 });
     }

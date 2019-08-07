@@ -19,6 +19,7 @@ public class BlankActivity extends AppCompatActivity {
     private static final String TAG = "BlankActivity";
     private Intent intent;
     private Context mContext;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,28 +58,10 @@ public class BlankActivity extends AppCompatActivity {
         } else {
             getSupportFragmentManager().popBackStack();
         }
-//        String intentValue = intent.getStringExtra(MainActivity.EXTRA_LAYOUT);
-//        String intentValue = "Daftar Baru";
-//        if (intentValue.equals("Daftar Baru")){
-//            makeDialog();
-//        }
     }
 
-    private void makeDialog(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-        builder.setMessage("Apakah anda telah menambahkan semua data anak?")
-                .setPositiveButton("Sudah", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        onBackPressed();
-                    }
-                })
-                .setNegativeButton("Belum", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.dismiss();
-                    }
-                });
-        builder.show();
-    }
+
+
 
 
     public void setActionBar(){
