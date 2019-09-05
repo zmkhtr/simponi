@@ -1,6 +1,7 @@
 package com.sipemandu.sipemandu.UI.ItemFragment;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -34,10 +35,13 @@ import com.sipemandu.sipemandu.Room.Model.DataKMS;
 import com.sipemandu.sipemandu.UI.DetailAnakFragment.DetailAnakFragment;
 import com.sipemandu.sipemandu.R;
 import com.sipemandu.sipemandu.UI.MainActivity.MainActivity;
+import com.sipemandu.sipemandu.UI.TambahAnakFragment.TambahAnakFragment;
 import com.sipemandu.sipemandu.UI.UpdateFragment.UpdateFragment;
+import com.sipemandu.sipemandu.Utils.ReportUtil;
 import com.sipemandu.sipemandu.Utils.URLs;
 import com.sipemandu.sipemandu.Utils.SessionManager;
 
+import org.joda.time.Period;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -71,7 +75,7 @@ public class ItemFragment extends Fragment implements ItemContract.View {
     private List<DataKMS> dataKMS = new ArrayList<>();
     private EditText mNama, mTanggal;
     private Calendar mCalender;
-    private Button mCari;
+    private Button mCari, mExcel, mTambahAnak;
     private ProgressBar mProgressBar;
 
     private ItemContract.Presenter presenter;
@@ -86,7 +90,10 @@ public class ItemFragment extends Fragment implements ItemContract.View {
         sessionManager = new SessionManager(mContext);
         key = getActivity().getIntent().getStringExtra(MainActivity.EXTRA_KEY);
 
+        mTambahAnak = view.findViewById(R.id.btnListTambahAnak);
         presenter = new ItemPresenter(this, new GetItemInteractor());
+
+        mExcel = view.findViewById(R.id.btnListExcel);
 
         recyclerView = view.findViewById(R.id.recyclerListData);
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
@@ -101,10 +108,24 @@ public class ItemFragment extends Fragment implements ItemContract.View {
 //        searchEnter();
         executeSearch();
         processCari(dataAnakOrtu,dataKMS);
+        generateExcel();
+
+        mTambahAnak.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addAnak();
+            }
+        });
+
+
         setDate();
         return view;
     }
+    private void addAnak(){
+        getFragmentManager().beginTransaction().addToBackStack("FormFragment").hide(this);
+        getFragmentManager().beginTransaction().addToBackStack("TambahAnakFragment").replace(R.id.blankContainer, new TambahAnakFragment()).commit();
 
+    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -137,6 +158,10 @@ public class ItemFragment extends Fragment implements ItemContract.View {
             mTanggal.setEnabled(false);
             mCari.setVisibility(View.INVISIBLE);
             mCari.setEnabled(false);
+            mExcel.setVisibility(View.INVISIBLE);
+            mExcel.setEnabled(false);
+            mTambahAnak.setVisibility(View.VISIBLE);
+            mTambahAnak.setEnabled(true);
         } else if (key.equals("tanggal")) {
             presenter.onTanggalSearch(searchKey,mContext);
             mNama.setText("");
@@ -145,6 +170,10 @@ public class ItemFragment extends Fragment implements ItemContract.View {
             mNama.setEnabled(false);
             mTanggal.setVisibility(View.VISIBLE);
             mTanggal.setEnabled(true);
+            mExcel.setVisibility(View.VISIBLE);
+            mExcel.setEnabled(true);
+            mTambahAnak.setVisibility(View.INVISIBLE);
+            mTambahAnak.setEnabled(false);
         } else if (key.equals("nama_anak_laporan") || key.equals("nama_anak")){
             presenter.onAnakSearch(searchKey, mContext);
             mNama.setText(searchKey);
@@ -153,6 +182,10 @@ public class ItemFragment extends Fragment implements ItemContract.View {
             mNama.setEnabled(true);
             mTanggal.setVisibility(View.INVISIBLE);
             mTanggal.setEnabled(false);
+            mExcel.setVisibility(View.INVISIBLE);
+            mExcel.setEnabled(false);
+            mTambahAnak.setVisibility(View.INVISIBLE);
+            mTambahAnak.setEnabled(false);
         }
     }
 
@@ -257,11 +290,14 @@ public class ItemFragment extends Fragment implements ItemContract.View {
                                             data.getString("nama_ortu"),
                                             data.getString("nama_anak"),
                                             data.getInt("id"),
-                                            data.getInt("bb"),
+                                            data.getDouble("bb"),
                                             data.getString("ket_bb"),
-                                            data.getInt("tb"),
-                                            data.getString("ket_tb")
+                                            data.getDouble("tb"),
+                                            data.getString("ket_tb"),
+                                            data.getString("nik_anak"),
+                                            data.getString("tgl_lahir")
                                     ));
+
                                 }
                                 recyclerView.setAdapter(adapterKMS);
                                 adapterKMS.setDataKMS(dataKMS);
@@ -327,8 +363,8 @@ public class ItemFragment extends Fragment implements ItemContract.View {
                                             data.getString("nama_anak"),
                                             data.getString("jenis_kelamin"),
                                             data.getString("tgl_lahir"),
-                                            data.getInt("bb_lahir"),
-                                            data.getInt("tb_lahir"),
+                                            data.getDouble("bb_lahir"),
+                                            data.getDouble("tb_lahir"),
                                             data.getString("asi_external")
                                     ));
                                     Log.d(TAG, "onSuccess: asd " + dataAnakOrtu.get(0).getNamaAnak());
@@ -361,6 +397,30 @@ public class ItemFragment extends Fragment implements ItemContract.View {
         disposable.dispose();
     }
 
+    private void generateExcel(){
+        final ProgressDialog progressDialog;
+        progressDialog = new ProgressDialog(mContext);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Membuat file excel...");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setProgress(0);
+            mExcel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (!mTanggal.getText().toString().isEmpty() && !adapterKMS.getmDataKMS().isEmpty()) {
+                        progressDialog.show();
+                        if (ReportUtil.exportToExcel(adapterKMS.getmDataKMS(), mTanggal.getText().toString(),sessionManager.getUserEmail())) {
+                            Toast.makeText(mContext, "berhasil buat file excel : storage/laporan/namafile.xls", Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
+                        }
+                    } else {
+                        Toast.makeText(mContext, "tidak ada data kms untuk di generate", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            });
+
+    }
 
     private void bottomDialogFragment() {
         UpdateFragment myDiag = new UpdateFragment();
@@ -421,13 +481,22 @@ public class ItemFragment extends Fragment implements ItemContract.View {
                 DataAnakOrtu mDataAnakOrtu = dataAnakOrtu.get(position);
                 Log.d(TAG, "onViewClick: " + key);
                 Log.d(TAG, "onViewClick: " + mDataAnakOrtu.getId());
+
+                Period period = ReportUtil.calculateAge(mDataAnakOrtu.getTanggalLahir());
+
+                String usiaHariIni = period.getYears()
+                                + " Tahun " + period.getMonths()
+                                + " Bulan " + period.getDays() + " Hari";
+
                 sessionManager.setDataAnak(mDataAnakOrtu.getId(), mDataAnakOrtu.getNamaAnak(), mDataAnakOrtu.getNamaOrtu());
+                sessionManager.setUsiaAnak(usiaHariIni);
                 if (key.equals("nama_anak_laporan")) {
                     DetailAnakFragment fragment = new DetailAnakFragment();
                     getFragmentManager().beginTransaction().replace(R.id.blankContainer, fragment).addToBackStack("detailFragment").commit();
                 } else if (key.equals("nama_anak")) {
                     bottomDialogFragment();
                 }
+
             }
         });
     }

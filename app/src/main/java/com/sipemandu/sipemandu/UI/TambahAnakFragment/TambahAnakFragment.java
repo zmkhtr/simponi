@@ -236,7 +236,7 @@ public class TambahAnakFragment extends Fragment {
                         e.printStackTrace();
                         Log.e(TAG, "onError: ", e);
                         Log.e(TAG, "onError: ", e.getCause());
-                        Toasty.warning(mContext, "Pastikan anda terhubung dengan internet.", Toast.LENGTH_SHORT, true).show();
+                        Toasty.warning(mContext, "Kesalahan pada server dan Pastikan anda terhubung dengan internet.", Toast.LENGTH_SHORT, true).show();
 
                         dialog.dismiss();
                     }

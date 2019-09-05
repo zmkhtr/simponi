@@ -5,7 +5,7 @@ public class URLs {
     public static final String END_POINT_LOGIN = "/login";
     //field : email, password
     public static final String END_POINT_DAFTAR = "/daftar";
-    //field : no_nfc, nik, nama_ortu, tgl_lahir_ortu, nik_anak, nama_anak, jenis_kelamin, tgl_lahir_anak, bb_lahir, tb_lahir, asi_external
+    //field : no_nfc, nik, nama_ortu, tgl_lahir_ortu, nik_anak, nik_anak, jenis_kelamin, tgl_lahir_anak, bb_lahir, bb_lahir, asi_external
     public static final String END_POINT_SEARCH_KTP = "/searchKTP/"; // + {no_nfc}
     public static final String END_POINT_SEARCH_NAMA_ANAK = "/searchNama/"; // + {nama_anak}
     public static final String END_POINT_ENTRY_POSYANDU = "/data/kms/"; // + {id}  -->id == id anak

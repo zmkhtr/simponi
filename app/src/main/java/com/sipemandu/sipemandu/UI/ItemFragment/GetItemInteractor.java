@@ -66,8 +66,8 @@ public class GetItemInteractor implements ItemContract.GetAnakInteractor {
                                             data.getString("nama_anak"),
                                             data.getString("jenis_kelamin"),
                                             data.getString("tgl_lahir"),
-                                            data.getInt("bb_lahir"),
-                                            data.getInt("tb_lahir"),
+                                            data.getDouble("bb_lahir"),
+                                            data.getDouble("tb_lahir"),
                                             data.getString("asi_external")
                                     ));
                                     onFinishedListener.onSuccess(dataAnakOrtu);
@@ -126,10 +126,12 @@ public class GetItemInteractor implements ItemContract.GetAnakInteractor {
                                             data.getString("nama_ortu"),
                                             data.getString("nama_anak"),
                                             data.getInt("id"),
-                                            data.getInt("bb"),
+                                            data.getDouble("bb"),
                                             data.getString("ket_bb"),
-                                            data.getInt("tb"),
-                                            data.getString("ket_tb")
+                                            data.getDouble("tb"),
+                                            data.getString("ket_tb"),
+                                            data.getString("nik_anak"),
+                                            data.getString("tgl_lahir")
                                     ));
                                     onFinishedListener.onSuccessTanggal(dataKMS);
                                     onFinishedListener.onErrorFalse("success fetch data");
@@ -184,18 +186,21 @@ public class GetItemInteractor implements ItemContract.GetAnakInteractor {
                                 for (int i = 0; i < jsonObject.getJSONArray("anak").length(); i++) {
                                     Log.d(TAG, "onSuccess: for");
                                     JSONObject data = jsonObject.getJSONArray("anak").getJSONObject(i);
+                                    JSONObject dataOrtu = jsonObject.getJSONObject("ortu");
                                     dataAnakOrtu.add(new DataAnakOrtu(
-                                            data.getString("nama_ortu"),
+                                            dataOrtu.getString("nama_ortu"),
                                             data.getInt("id"),
                                             data.getInt("ortu_id"),
                                             data.getString("nik_anak"),
                                             data.getString("nama_anak"),
                                             data.getString("jenis_kelamin"),
                                             data.getString("tgl_lahir"),
-                                            data.getInt("bb_lahir"),
-                                            data.getInt("tb_lahir"),
+                                            data.getDouble("bb_lahir"),
+                                            data.getDouble("tb_lahir"),
                                             data.getString("asi_external")
                                     ));
+                                    sessionManager.setDataOrtu(dataOrtu.getString("nik"), dataOrtu.getString("nama_ortu"),  dataOrtu.getString("tgl_lahir"));
+
                                     onFinishedListener.onSuccess(dataAnakOrtu);
                                     onFinishedListener.onErrorFalse("success fetch data");
                                 }

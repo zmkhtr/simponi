@@ -131,12 +131,18 @@
           android:textColor="@color/black"
           android:padding="@dimen/_5sdp"
           android:textAlignment="center"/>
-      <androidx.recyclerview.widget.RecyclerView
-          android:layout_below="@id/dataAnakTitle"
-          android:id="@+id/recyclerViewForm"
+
+      <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+          android:id="@+id/swipeFormRecyclerView"
           android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:layout_above="@+id/cardViewForm"/>
+          android:layout_height="wrap_content"
+          android:layout_above="@+id/cardViewForm"
+          android:layout_below="@id/dataAnakTitle">
+          <androidx.recyclerview.widget.RecyclerView
+              android:id="@+id/recyclerViewForm"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"/>
+      </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
       <androidx.cardview.widget.CardView
           android:id="@+id/cardViewForm"

@@ -1,15 +1,20 @@
 package com.sipemandu.sipemandu.UI.MainActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.viewpager.widget.ViewPager;
 
+import android.Manifest;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.nfc.NfcAdapter;
+import android.nfc.NfcManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -26,8 +31,13 @@ import com.sipemandu.sipemandu.UI.BlankContainer.BlankActivity;
 import com.sipemandu.sipemandu.UI.MainActivity.FragmentTab.LaporanFragment;
 import com.sipemandu.sipemandu.UI.LoginActivity.LoginActivity;
 import com.sipemandu.sipemandu.UI.MainActivity.FragmentTab.PendaftaranFragment;
+import com.sipemandu.sipemandu.Utils.ReportUtil;
 import com.sipemandu.sipemandu.Utils.SectionsPageAdapter;
 import com.sipemandu.sipemandu.Utils.SessionManager;
+
+import org.joda.time.LocalDate;
+import org.joda.time.Period;
+import org.joda.time.PeriodType;
 
 import es.dmoral.toasty.Toasty;
 import io.reactivex.disposables.CompositeDisposable;
@@ -65,8 +75,9 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         setupViewPager(viewPager);
 
         presenter = new MainPresenter(this, new GetMainInteractor());
-
-        nfcAdapter = NfcAdapter.getDefaultAdapter(this);
+        NfcManager manager = (NfcManager) context.getSystemService(Context.NFC_SERVICE);
+        nfcAdapter = manager.getDefaultAdapter();
+//        nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         if (nfcAdapter == null) {
             Toasty.error(this, "No NFC", Toast.LENGTH_SHORT, true).show();
         }
@@ -78,6 +89,19 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         setTab();
         setEmailView();
         logout();
+
+
+        LocalDate birthdate = new LocalDate (1998, 3, 14);      //Birth date
+        LocalDate now = new LocalDate();                        //Today's date
+
+        Period period = new Period(birthdate, now, PeriodType.yearMonthDay());
+        Log.d(TAG, "onCreate: hari " + period.getDays());
+        Log.d(TAG, "onCreate: bulan " + period.getMonths());
+        Log.d(TAG, "onCreate: tahun " + period.getYears());
+
+        if (isStoragePermissionGranted()){
+            Log.d(TAG, "onCreate: permission granted");
+        }
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -85,6 +109,34 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         adapter.addFragment(new PendaftaranFragment(), "Regitrasi");
         adapter.addFragment(new LaporanFragment(), "Laporan");
         viewPager.setAdapter(adapter);
+    }
+
+    public  boolean isStoragePermissionGranted() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_GRANTED) {
+                Log.v(TAG,"Permission is granted");
+                return true;
+            } else {
+
+                Log.v(TAG,"Permission is revoked");
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                return false;
+            }
+        }
+        else { //permission is automatically granted on sdk<23 upon installation
+            Log.v(TAG,"Permission is granted");
+            return true;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+            Log.v(TAG,"Permission: "+permissions[0]+ "was "+grantResults[0]);
+            //resume tasks needing this permission
+        }
     }
 
     private void setEmailView() {
@@ -237,12 +289,12 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     @Override
     public void onNFCError(Throwable e) {
         Log.e(TAG, "onNFCError: ", e);
-        Toasty.warning(context, "Pastikan anda terhubung dengan internet", Toast.LENGTH_SHORT, true).show();
+        Toasty.warning(context, "Kesalahan pada server dan Pastikan anda terhubung dengan internet.", Toast.LENGTH_SHORT, true).show();
     }
 
     @Override
     public void onNFCErrorServer(Throwable e) {
         Log.e(TAG, "onNFCErrorServer: ", e);
-        Toasty.error(context, "Terdapat kesalahan pada server", Toast.LENGTH_SHORT, true).show();
+        Toasty.error(context, "Kesalahan pada server dan Pastikan anda terhubung dengan internet.", Toast.LENGTH_SHORT, true).show();
     }
 }

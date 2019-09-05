@@ -14,11 +14,11 @@ public class DataAnakOrtu {
     private String namaAnak;
     private String jenisKelamin;
     private String tanggalLahir;
-    private int bbLahir;
-    private int tbLahir;
+    private Double bbLahir;
+    private Double tbLahir;
     private String asiEkslusif;
 
-    public DataAnakOrtu(String namaOrtu, int id, int ortuId, String nikAnak, String namaAnak, String jenisKelamin, String tanggalLahir, int bbLahir, int tbLahir, String asiEkslusif) {
+    public DataAnakOrtu(String namaOrtu, int id, int ortuId, String nikAnak, String namaAnak, String jenisKelamin, String tanggalLahir, Double bbLahir, Double tbLahir, String asiEkslusif) {
         this.namaOrtu = namaOrtu;
         this.id = id;
         this.ortuId = ortuId;
@@ -61,11 +61,11 @@ public class DataAnakOrtu {
         return tanggalLahir;
     }
 
-    public int getBbLahir() {
+    public Double getBbLahir() {
         return bbLahir;
     }
 
-    public int getTbLahir() {
+    public Double getTbLahir() {
         return tbLahir;
     }
 

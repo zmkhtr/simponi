@@ -11,6 +11,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -50,7 +51,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 
-public class FormFragment extends Fragment {
+public class FormFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     private static final String TAG = "FormFragment";
     private TextView mNFC;
     private EditText mNIK, mNamaOrtu, mTanggalLahirOrtu;
@@ -61,6 +62,7 @@ public class FormFragment extends Fragment {
     private ListAnakAdapter adapter = new ListAnakAdapter();
     private CompositeDisposable disposable = new CompositeDisposable();
     private List<DataAnak> dataAnak = new ArrayList<>();
+    private SwipeRefreshLayout swipeRefreshLayout;
 
 
     @Override
@@ -86,6 +88,8 @@ public class FormFragment extends Fragment {
         mTanggalLahirOrtu = view.findViewById(R.id.edtFormTanggalLahirOrtu);
         mCalender = Calendar.getInstance();
         mSimpan = view.findViewById(R.id.btnFormSimpanData);
+        swipeRefreshLayout = view.findViewById(R.id.swipeFormRecyclerView);
+        adapter = new ListAnakAdapter();
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerViewForm);
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
@@ -156,6 +160,7 @@ public class FormFragment extends Fragment {
     }
 
     private void readData(){
+        Log.d(TAG, "readData: coba");
         Rx2AndroidNetworking.get(URLs.BASE_URL + URLs.END_POINT_SEARCH_KTP + sessionManager.getNFC())
                 .addHeaders("Authorization", "Bearer " + sessionManager.getUserToken())
                 .build()
@@ -181,19 +186,22 @@ public class FormFragment extends Fragment {
                                             data.getString("nama_anak"),
                                             data.getString("jenis_kelamin"),
                                             data.getString("tgl_lahir"),
-                                            data.getInt("bb_lahir"),
-                                            data.getInt("tb_lahir"),
+                                            data.getDouble("bb_lahir"),
+                                            data.getDouble("tb_lahir"),
                                             data.getString("asi_external")
                                     ));
                                 }
                                 adapter.clearList(dataAnak);
                                 adapter.setDataAnak(dataAnak);
+                                swipeRefreshLayout.setRefreshing(false);
                                     Log.d(TAG, "onSuccess: showdata" + jsonObject.getString("anak"));
                             } else if (jsonObject.getString("error").equals("true")) {
                                 Log.d(TAG, "onSuccess: daftar");
+                                swipeRefreshLayout.setRefreshing(false);
                                }
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            swipeRefreshLayout.setRefreshing(false);
                         }
                     }
 
@@ -201,7 +209,9 @@ public class FormFragment extends Fragment {
                     public void onError(Throwable e) {
                         Log.e(TAG, "onError: ", e);
                         Log.e(TAG, "onError: ", e.getCause());
-                        Toasty.warning(mContext, "Pastikan anda terhubung dengan internet", Toast.LENGTH_SHORT,true).show();
+                        Toasty.warning(mContext, "Kesalahan pada server dan Pastikan anda terhubung dengan internet.", Toast.LENGTH_SHORT,true).show();
+
+                        swipeRefreshLayout.setRefreshing(false);
                     }
                 });
     }
@@ -313,5 +323,8 @@ public class FormFragment extends Fragment {
     }
 
 
-
+    @Override
+    public void onRefresh() {
+        readData();
+    }
 }

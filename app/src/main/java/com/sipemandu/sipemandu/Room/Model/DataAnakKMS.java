@@ -13,11 +13,12 @@ public class DataAnakKMS {
     private String namaAnak;
     private String jenisKelamin;
     private String tanggalLahir;
-    private int beratBadan;
-    private int tinggiBadan;
+    private Double beratBadan;
+    private Double tinggiBadan;
     private String asiEksklusif;
 
-    public DataAnakKMS(String nikAnak, String namaAnak, String jenisKelamin, String tanggalLahir, int beratBadan, int tinggiBadan, String asiEksklusif) {
+    public DataAnakKMS(int idAnak, String nikAnak, String namaAnak, String jenisKelamin, String tanggalLahir, Double beratBadan, Double tinggiBadan, String asiEksklusif) {
+        this.idAnak = idAnak;
         this.nikAnak = nikAnak;
         this.namaAnak = namaAnak;
         this.jenisKelamin = jenisKelamin;
@@ -51,11 +52,11 @@ public class DataAnakKMS {
         return tanggalLahir;
     }
 
-    public int getBeratBadan() {
+    public Double getBeratBadan() {
         return beratBadan;
     }
 
-    public int getTinggiBadan() {
+    public Double getTinggiBadan() {
         return tinggiBadan;
     }
 

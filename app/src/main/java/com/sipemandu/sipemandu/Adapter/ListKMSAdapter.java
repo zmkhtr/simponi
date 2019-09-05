@@ -56,6 +56,9 @@ public class ListKMSAdapter extends RecyclerView.Adapter<ListKMSAdapter.Viewhold
         dataKMS.clear();
     }
 
+    public List<DataKMS> getmDataKMS() {
+        return mDataKMS;
+    }
 
     public class Viewholder extends RecyclerView.ViewHolder {
         TextView namaAnak, statusBerat, statusTInggi, beratBadan, tinggiBadan, namaOrangTua;

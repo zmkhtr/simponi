@@ -10,12 +10,14 @@ public class DataKMS {
     private int id;
     private String namaOrtu;
     private String namaAnak;
-    private int bb;
+    private Double bb;
     private String ket_bb;
-    private int tb;
+    private Double tb;
     private String ket_tb;
+    private String nik_anak;
+    private String tgl_lahir;
 
-    public DataKMS(String namaOrtu, String namaAnak, int id, int bb, String ket_bb, int tb, String ket_tb) {
+    public DataKMS(String namaOrtu, String namaAnak, int id, Double bb, String ket_bb, Double tb, String ket_tb, String nik_anak, String tgl_lahir) {
         this.namaOrtu = namaOrtu;
         this.namaAnak = namaAnak;
         this.id = id;
@@ -23,6 +25,8 @@ public class DataKMS {
         this.ket_bb = ket_bb;
         this.tb = tb;
         this.ket_tb = ket_tb;
+        this.nik_anak = nik_anak;
+        this.tgl_lahir = tgl_lahir;
     }
 
     public String getNamaOrtu() {
@@ -37,7 +41,7 @@ public class DataKMS {
         return id;
     }
 
-    public int getBb() {
+    public Double getBb() {
         return bb;
     }
 
@@ -45,11 +49,55 @@ public class DataKMS {
         return ket_bb;
     }
 
-    public int getTb() {
+    public Double getTb() {
         return tb;
     }
 
     public String getKet_tb() {
         return ket_tb;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setNamaOrtu(String namaOrtu) {
+        this.namaOrtu = namaOrtu;
+    }
+
+    public void setNamaAnak(String namaAnak) {
+        this.namaAnak = namaAnak;
+    }
+
+    public void setBb(Double bb) {
+        this.bb = bb;
+    }
+
+    public void setKet_bb(String ket_bb) {
+        this.ket_bb = ket_bb;
+    }
+
+    public void setTb(Double tb) {
+        this.tb = tb;
+    }
+
+    public void setKet_tb(String ket_tb) {
+        this.ket_tb = ket_tb;
+    }
+
+    public String getNik_anak() {
+        return nik_anak;
+    }
+
+    public void setNik_anak(String nik_anak) {
+        this.nik_anak = nik_anak;
+    }
+
+    public String getTgl_lahir() {
+        return tgl_lahir;
+    }
+
+    public void setTgl_lahir(String tgl_lahir) {
+        this.tgl_lahir = tgl_lahir;
     }
 }

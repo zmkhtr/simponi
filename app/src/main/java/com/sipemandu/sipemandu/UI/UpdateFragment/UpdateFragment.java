@@ -40,8 +40,9 @@ public class UpdateFragment extends DialogFragment {
     private Context mContext;
     private EditText mBeratBadan, mTinggiBadan;
     private Button mTambah;
-    private TextView mNamaAnak, mNamaOrtu;
+    private TextView mNamaAnak, mNamaOrtu, mUsiaAnak;
     private CompositeDisposable disposable = new CompositeDisposable();
+
 
 
     @Nullable
@@ -62,7 +63,10 @@ public class UpdateFragment extends DialogFragment {
         mTambah = view.findViewById(R.id.btnUpdateData);
         mNamaOrtu = view.findViewById(R.id.textUpdateNamaOrtu);
         mNamaAnak.setText(sessionManager.getNamaAnak());
-        mNamaOrtu.setText("Orang tua : " + sessionManager.getNamaOrtu());
+        String namaOrtu = "Orang tua : " + sessionManager.getNamaOrtu();
+        mUsiaAnak = view.findViewById(R.id.textUpdateUsiaAnak);
+        mUsiaAnak.setText(sessionManager.getUsiaAnak());
+        mNamaOrtu.setText(namaOrtu);
         Log.d(TAG, "onViewCreated: " + sessionManager.getIdAnak());
         clickButtonTambah();
     }
@@ -97,6 +101,7 @@ public class UpdateFragment extends DialogFragment {
                 .addHeaders("Authorization", "Bearer " + sessionManager.getUserToken())
                 .addBodyParameter("bb", mBeratBadan.getText().toString())
                 .addBodyParameter("tb", mTinggiBadan.getText().toString())
+                .addBodyParameter("usia", sessionManager.getUsiaAnak())
                 .build()
                 .getJSONObjectSingle()
                 .subscribeOn(Schedulers.io())
@@ -130,7 +135,7 @@ public class UpdateFragment extends DialogFragment {
                         e.printStackTrace();
                         Log.e(TAG, "onError: ", e);
                         Log.e(TAG, "onError: ", e.getCause());
-                        Toasty.warning(mContext, "Pastikan anda terhubung dengan internet.", Toast.LENGTH_SHORT, true).show();
+                        Toasty.warning(mContext, "Kesalahan pada server dan Pastikan anda terhubung dengan internet.", Toast.LENGTH_SHORT, true).show();
                     }
                 });
     }

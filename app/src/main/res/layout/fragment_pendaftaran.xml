@@ -72,6 +72,11 @@
             android:text="@string/tempelkan_ktp_dibelakang_perangkat"
             android:padding="5dp"
             android:layout_marginBottom="5dp"/>
+        <!--<Button-->
+            <!--android:id="@+id/scanKTP"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:text="@string/scan_ktp"/>-->
     </LinearLayout>
 
 </RelativeLayout>

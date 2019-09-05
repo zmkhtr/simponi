@@ -28,6 +28,7 @@ public class SessionManager {
 
     private static final String ID_ANAK = "idAnak";
     private static final String NAMA_ANAK = "namaAnak";
+    private static final String USIA_ANAK = "usiaAnak";
 
     public SessionManager(Context context) {
         int PRIVATE_MODE = 0;
@@ -46,6 +47,12 @@ public class SessionManager {
         editor.putString(ID_NFC, idNFC);
         editor.commit();
     }
+
+    public void setUsiaAnak(String usia) {
+        editor.putString(USIA_ANAK, usia);
+        editor.commit();
+    }
+
 
     public void setUserEmail(String email) {
         editor.putString(USER_EMAIL, email);
@@ -68,6 +75,11 @@ public class SessionManager {
         editor.putString(NAMA_ANAK, namaAnak);
         editor.putString(NAMA_ORTU, namaOrtu);
         editor.commit();
+    }
+
+
+    public String getUsiaAnak() {
+        return pref.getString(USIA_ANAK, null);
     }
 
     public String getNikOrtu(){

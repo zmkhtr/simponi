@@ -1,10 +1,12 @@
 package com.sipemandu.sipemandu.UI.DetailAnakFragment;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,9 +23,11 @@ import com.rx2androidnetworking.Rx2AndroidNetworking;
 import com.sipemandu.sipemandu.Adapter.ListKMSDetailAdapter;
 import com.sipemandu.sipemandu.R;
 import com.sipemandu.sipemandu.Room.Model.DataKMSDetail;
+import com.sipemandu.sipemandu.Utils.ReportUtil;
 import com.sipemandu.sipemandu.Utils.URLs;
 import com.sipemandu.sipemandu.Utils.SessionManager;
 
+import org.joda.time.Period;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -78,7 +82,7 @@ public class DetailAnakFragment extends Fragment {
         displayDetailAnak();
     }
 
-    private void displayDetailAnak(){
+    private void displayDetailAnak() {
         Log.d(TAG, "displayDetailAnak: " + sessionManager.getIdAnak());
         progressBar.setVisibility(View.VISIBLE);
         Rx2AndroidNetworking.get(URLs.BASE_URL + URLs.END_POINT_LAPORAN_ANAK + sessionManager.getIdAnak())
@@ -93,6 +97,7 @@ public class DetailAnakFragment extends Fragment {
                         disposable.add(d);
                     }
 
+                    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                     @Override
                     public void onSuccess(JSONObject jsonObject) {
                         Log.d(TAG, "onSuccess: aa" + jsonObject);
@@ -107,7 +112,14 @@ public class DetailAnakFragment extends Fragment {
                                 beratBadan.setText(jsonObject.getJSONObject("anak").getString("bb_lahir"));
                                 tinggiBadan.setText(jsonObject.getJSONObject("anak").getString("tb_lahir"));
                                 tanggalLahir.setText(jsonObject.getJSONObject("anak").getString("tgl_lahir"));
-                                if (jsonObject.getJSONObject("anak").getString("asi_external").equals("1")){
+                                Period period = ReportUtil.calculateAge(jsonObject.getJSONObject("anak").getString("tgl_lahir"));
+
+                                String usiaHariIni = jsonObject.getJSONObject("anak").getString("tgl_lahir")
+                                        + System.lineSeparator() + "Usia = " + period.getYears() + " Tahun " + period.getMonths() + " Bulan " + period.getDays() + " Hari";
+                                tanggalLahir.setText(usiaHariIni);
+
+
+                                if (jsonObject.getJSONObject("anak").getString("asi_external").equals("1")) {
                                     asiEksklusif.setText("Ya");
                                 } else {
                                     asiEksklusif.setText("Tidak");
@@ -116,15 +128,15 @@ public class DetailAnakFragment extends Fragment {
                                     JSONObject data = jsonObject.getJSONArray("kms").getJSONObject(i);
                                     dataKMS.add(new DataKMSDetail(
                                             data.getInt("id"),
-                                            data.getInt("bb"),
+                                            data.getDouble("bb"),
                                             data.getString("ket_bb"),
-                                            data.getInt("tb"),
+                                            data.getDouble("tb"),
                                             data.getString("ket_tb")
                                     ));
                                 }
                                 recyclerView.setAdapter(adapterKMS);
                                 adapterKMS.setDataKMS(dataKMS);
-                                if (adapterKMS.getItemCount() <= 0){
+                                if (adapterKMS.getItemCount() <= 0) {
                                     Toasty.info(mContext, "Belum ada riwayat", Toast.LENGTH_SHORT, true).show();
                                 }
                                 Log.d(TAG, "onSuccess: showdata" + jsonObject.getString("anak"));

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     tools:context=".UI.UpdateFragment.UpdateFragment">
 
     <LinearLayout
@@ -19,6 +19,15 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
         <TextView
+            android:id="@+id/textUpdateUsiaAnak"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/_1_tahun_3_bulan_10_hari"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+        <TextView
             android:id="@+id/textUpdateNamaOrtu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -27,10 +36,10 @@
             android:layout_marginBottom="10dp"
             android:text="@string/nama_orang_tua"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:id="@+id/layoutBeratBadan"
@@ -47,14 +56,14 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginEnd="15dp"
                     android:layout_marginRight="15dp"
-                    android:layout_weight="8">
+                    android:layout_weight="6">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edtUpdateBeratBadanAnak"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/berat_badan_saat_ini"
-                        android:inputType="number" />
+                        android:inputType="numberDecimal" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
@@ -68,10 +77,15 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
             </LinearLayout>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/contoh_input_berat_badan_10_5"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/layoutBeratBadan"
                 android:orientation="horizontal">
 
 
@@ -83,14 +97,14 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginEnd="15dp"
                     android:layout_marginRight="15dp"
-                    android:layout_weight="8">
+                    android:layout_weight="6">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edtUpdateTinggiBadanAnak"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/tinggi_badan_saat_ini"
-                        android:inputType="number" />
+                        android:inputType="numberDecimal" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
@@ -103,7 +117,14 @@
                     android:text="@string/cm"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
             </LinearLayout>
-        </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/contoh_input_tinggi_badan_120_25"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp" />
+        </LinearLayout>
 
         <Button
             android:id="@+id/btnUpdateData"
@@ -116,4 +137,4 @@
             android:textColor="@color/white" />
 
     </LinearLayout>
-</ScrollView>
+</RelativeLayout>

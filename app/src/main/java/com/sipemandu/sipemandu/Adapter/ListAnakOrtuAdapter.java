@@ -1,6 +1,7 @@
 package com.sipemandu.sipemandu.Adapter;
 
 import android.content.Context;
+import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,12 +9,16 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sipemandu.sipemandu.R;
 import com.sipemandu.sipemandu.Room.Model.DataAnakOrtu;
+import com.sipemandu.sipemandu.Utils.ReportUtil;
+
+import org.joda.time.Period;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +37,7 @@ public class ListAnakOrtuAdapter extends RecyclerView.Adapter<ListAnakOrtuAdapte
         return new Viewholder(view);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void onBindViewHolder(@NonNull Viewholder holder, int position) {
         DataAnakOrtu dataAnakOrtu = mDataAnakOrtu.get(position);
@@ -41,6 +47,16 @@ public class ListAnakOrtuAdapter extends RecyclerView.Adapter<ListAnakOrtuAdapte
         holder.tanggalLahir.setText(dataAnakOrtu.getTanggalLahir());
         holder.beratBadan.setText(String.valueOf(dataAnakOrtu.getBbLahir()));
         holder.tinggiBadan.setText(String.valueOf(dataAnakOrtu.getTbLahir()));
+
+        Period period = ReportUtil.calculateAge(dataAnakOrtu.getTanggalLahir());
+
+        String usiaHariIni =
+                dataAnakOrtu.getTanggalLahir()
+                        + System.lineSeparator()
+                        + "Usia = " + period.getYears()
+                        + " Tahun " + period.getMonths()
+                        + " Bulan " + period.getDays() + " Hari";
+        holder.tanggalLahir.setText(usiaHariIni);
 
         String nikAnak = dataAnakOrtu.getNikAnak();     //input string
         String kodeNik;     //substring containing first 4 characters

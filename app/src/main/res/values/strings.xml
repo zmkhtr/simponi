@@ -65,4 +65,7 @@
     <string name="memuat">memuat...</string>
     <string name="history_anak">History Anak :</string>
     <string name="clickable">clickable</string>
+    <string name="contoh_input_berat_badan_10_5">Contoh Input Berat Badan : 10.5</string>
+    <string name="contoh_input_tinggi_badan_120_25">Contoh Input Tinggi Badan : 120.25</string>
+    <string name="_1_tahun_3_bulan_10_hari">1 tahun 3 bulan 10 hari</string>
 </resources>

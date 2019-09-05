@@ -44,15 +44,7 @@ public class ListAnakAdapter extends RecyclerView.Adapter<ListAnakAdapter.Viewho
     @Override
     public void onBindViewHolder(@NonNull Viewholder holder, int position) {
 
-        if(position == mDataAnak.size()) {
-            holder.mButtonTambah.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Log.d(TAG, "onClick: ");
-                        listener.onButtonTambahClick();
-                }
-            });
-        } else {
+        if(position == R.layout.item_data_anak) {
             DataAnak dataAnak = mDataAnak.get(position);
             holder.namaAnak.setText(dataAnak.getNamaAnak());
             holder.jenisKelamin.setText(dataAnak.getJenisKelamin());
@@ -60,6 +52,14 @@ public class ListAnakAdapter extends RecyclerView.Adapter<ListAnakAdapter.Viewho
             holder.beratBadan.setText(String.valueOf(dataAnak.getBeratBadan()));
             holder.tinggiBadan.setText(String.valueOf(dataAnak.getTinggiBadan()));
             holder.asiEksklusif.setText(dataAnak.getAsiEksklusif());
+        } else {
+            holder.mButtonTambah.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.d(TAG, "onClick: ");
+                    listener.onButtonTambahClick();
+                }
+            });
         }
     }
 

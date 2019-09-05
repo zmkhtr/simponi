@@ -33,8 +33,8 @@ public class ListKMSDetailAdapter extends RecyclerView.Adapter<ListKMSDetailAdap
         DataKMSDetail dataKMS = mDataKMS.get(position);
             holder.statusBerat.setText(dataKMS.getKet_bb());
             holder.statusTInggi.setText(dataKMS.getKet_tb());
-            holder.beratBadan.setText(String.valueOf(dataKMS.getBb()));
-            holder.tinggiBadan.setText(String.valueOf(dataKMS.getTb()));
+            holder.beratBadan.setText(Double.toString(dataKMS.getBb()));
+            holder.tinggiBadan.setText(Double.toString(dataKMS.getTb()));
     }
 
     @Override
