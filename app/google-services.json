@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "960548636028",
+    "firebase_url": "https://sipemandu-master.firebaseio.com",
+    "project_id": "sipemandu-master",
+    "storage_bucket": "sipemandu-master.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:960548636028:android:f111a3b6e4bf5d571ad0f9",
+        "android_client_info": {
+          "package_name": "com.sipemandu.sipemandu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "960548636028-ma2apnnjvmj3ufe6bau35mjorqf4uh68.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sipemandu.sipemandu",
+            "certificate_hash": "83988493cdf13f1bfc3d4364c60f7637ccc3d06b"
+          }
+        },
+        {
+          "client_id": "960548636028-imev4h5cpqu8ljgg4loji5acqmfoh59d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_7B2mspOZysNLp6akSfMFAhR8Ro42K-4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "960548636028-imev4h5cpqu8ljgg4loji5acqmfoh59d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

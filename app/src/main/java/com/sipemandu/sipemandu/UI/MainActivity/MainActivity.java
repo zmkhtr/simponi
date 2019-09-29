@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.sipemandu.sipemandu.NFC.NFC;
 import com.sipemandu.sipemandu.R;
 import com.sipemandu.sipemandu.UI.BlankContainer.BlankActivity;
