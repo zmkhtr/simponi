@@ -44,6 +44,7 @@ public class ListAnakOrtuAdapter extends RecyclerView.Adapter<ListAnakOrtuAdapte
         holder.namaOrangTua.setText(dataAnakOrtu.getNamaOrtu());
         holder.namaAnak.setText(dataAnakOrtu.getNamaAnak());
         holder.jenisKelamin.setText(dataAnakOrtu.getJenisKelamin());
+
         holder.tanggalLahir.setText(dataAnakOrtu.getTanggalLahir());
         holder.beratBadan.setText(String.valueOf(dataAnakOrtu.getBbLahir()));
         holder.tinggiBadan.setText(String.valueOf(dataAnakOrtu.getTbLahir()));

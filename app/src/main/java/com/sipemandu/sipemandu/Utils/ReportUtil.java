@@ -39,6 +39,7 @@ public class ReportUtil {
 
     public static Period calculateAge(String date) {
         LocalDate birthdate = new LocalDate(Date.valueOf(date));      //Birth date
+        Log.d(TAG, "calculateAge: gga " + birthdate);
         LocalDate now = new LocalDate();                        //Today's date
         Log.d(TAG, "calculateAge: " + birthdate);
         return new Period(birthdate, now, PeriodType.yearMonthDay());

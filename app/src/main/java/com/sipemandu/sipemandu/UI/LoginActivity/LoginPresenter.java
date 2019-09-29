@@ -47,6 +47,7 @@ public class LoginPresenter implements LoginContract.Presenter,LoginContract.Get
     public void onError(Throwable e) {
         if (loginView != null) {
             loginView.hideProgressBar();
+            loginView.onLoginError("Login error " + e);
         }
     }
 

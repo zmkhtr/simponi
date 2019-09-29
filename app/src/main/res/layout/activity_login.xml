@@ -11,7 +11,7 @@
         android:contentDescription="@string/background_login"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/bg_android"
+        android:src="@drawable/background_login"
         android:scaleType="fitXY"/>
     <ScrollView
         android:layout_width="match_parent"
@@ -26,8 +26,9 @@
                 android:contentDescription="@string/logo_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/logo"
                 android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_120sdp"
+                android:src="@drawable/user_icon"
                 android:padding="40dp"/>
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout"
