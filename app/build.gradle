@@ -8,7 +8,7 @@ android {
         applicationId "com.sipemandu.sipemandu"
         minSdkVersion 16
         targetSdkVersion 29
-        versionCode 6
+        versionCode 8
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
