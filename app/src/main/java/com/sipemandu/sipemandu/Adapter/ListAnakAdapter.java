@@ -6,18 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.DiffUtil;
-import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sipemandu.sipemandu.R;
-import com.sipemandu.sipemandu.Room.Model.DataAnak;
+import com.sipemandu.sipemandu.Model.DataAnak;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class ListAnakAdapter extends RecyclerView.Adapter<ListAnakAdapter.Viewholder> {

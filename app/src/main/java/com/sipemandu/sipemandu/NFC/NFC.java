@@ -55,6 +55,7 @@ public class NFC {
     public void showWirelessSettings(Context context) {
         Toast.makeText(context, "You need to enable NFC", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(Settings.ACTION_WIRELESS_SETTINGS);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
 

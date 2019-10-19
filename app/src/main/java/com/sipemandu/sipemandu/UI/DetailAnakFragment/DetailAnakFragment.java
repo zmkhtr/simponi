@@ -22,7 +22,7 @@ import android.widget.Toast;
 import com.rx2androidnetworking.Rx2AndroidNetworking;
 import com.sipemandu.sipemandu.Adapter.ListKMSDetailAdapter;
 import com.sipemandu.sipemandu.R;
-import com.sipemandu.sipemandu.Room.Model.DataKMSDetail;
+import com.sipemandu.sipemandu.Model.DataKMSDetail;
 import com.sipemandu.sipemandu.Utils.ReportUtil;
 import com.sipemandu.sipemandu.Utils.URLs;
 import com.sipemandu.sipemandu.Utils.SessionManager;

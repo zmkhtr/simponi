@@ -1,18 +1,10 @@
 package com.sipemandu.sipemandu.UI.ItemFragment;
 
 import android.content.Context;
-import android.content.Intent;
 
-import androidx.lifecycle.LiveData;
+import com.sipemandu.sipemandu.Model.DataAnakOrtu;
+import com.sipemandu.sipemandu.Model.DataKMS;
 
-import com.sipemandu.sipemandu.Room.Model.DataAnakOrtu;
-import com.sipemandu.sipemandu.Room.Model.DataKMS;
-import com.sipemandu.sipemandu.UI.LoginActivity.LoginContract;
-import com.sipemandu.sipemandu.UI.MainActivity.MainContract;
-
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public interface ItemContract {

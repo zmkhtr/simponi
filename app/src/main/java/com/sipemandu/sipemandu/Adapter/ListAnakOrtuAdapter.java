@@ -1,8 +1,6 @@
 package com.sipemandu.sipemandu.Adapter;
 
-import android.content.Context;
 import android.os.Build;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +8,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.recyclerview.widget.DiffUtil;
-import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sipemandu.sipemandu.R;
-import com.sipemandu.sipemandu.Room.Model.DataAnakOrtu;
+import com.sipemandu.sipemandu.Model.DataAnakOrtu;
 import com.sipemandu.sipemandu.Utils.ReportUtil;
 
 import org.joda.time.Period;

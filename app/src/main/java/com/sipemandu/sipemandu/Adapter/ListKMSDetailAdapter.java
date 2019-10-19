@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sipemandu.sipemandu.R;
-import com.sipemandu.sipemandu.Room.Model.DataKMSDetail;
+import com.sipemandu.sipemandu.Model.DataKMSDetail;
 
 import java.util.ArrayList;
 import java.util.List;

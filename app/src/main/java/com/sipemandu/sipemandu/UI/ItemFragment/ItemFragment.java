@@ -8,7 +8,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,8 +29,8 @@ import com.jakewharton.rxbinding3.view.RxView;
 import com.rx2androidnetworking.Rx2AndroidNetworking;
 import com.sipemandu.sipemandu.Adapter.ListAnakOrtuAdapter;
 import com.sipemandu.sipemandu.Adapter.ListKMSAdapter;
-import com.sipemandu.sipemandu.Room.Model.DataAnakOrtu;
-import com.sipemandu.sipemandu.Room.Model.DataKMS;
+import com.sipemandu.sipemandu.Model.DataAnakOrtu;
+import com.sipemandu.sipemandu.Model.DataKMS;
 import com.sipemandu.sipemandu.UI.DetailAnakFragment.DetailAnakFragment;
 import com.sipemandu.sipemandu.R;
 import com.sipemandu.sipemandu.UI.MainActivity.MainActivity;

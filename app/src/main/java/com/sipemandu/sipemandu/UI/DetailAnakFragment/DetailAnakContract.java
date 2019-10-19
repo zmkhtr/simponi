@@ -2,8 +2,8 @@ package com.sipemandu.sipemandu.UI.DetailAnakFragment;
 
 import android.content.Context;
 
-import com.sipemandu.sipemandu.Room.Model.DataAnakOrtu;
-import com.sipemandu.sipemandu.Room.Model.DataKMS;
+import com.sipemandu.sipemandu.Model.DataAnakOrtu;
+import com.sipemandu.sipemandu.Model.DataKMS;
 
 import java.util.List;
 

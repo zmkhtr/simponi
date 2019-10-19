@@ -2,14 +2,10 @@ package com.sipemandu.sipemandu.UI.ItemFragment;
 
 import android.content.Context;
 import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
-
-import androidx.lifecycle.LiveData;
 
 import com.rx2androidnetworking.Rx2AndroidNetworking;
-import com.sipemandu.sipemandu.Room.Model.DataAnakOrtu;
-import com.sipemandu.sipemandu.Room.Model.DataKMS;
+import com.sipemandu.sipemandu.Model.DataAnakOrtu;
+import com.sipemandu.sipemandu.Model.DataKMS;
 import com.sipemandu.sipemandu.Utils.SessionManager;
 import com.sipemandu.sipemandu.Utils.URLs;
 
@@ -18,7 +14,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import es.dmoral.toasty.Toasty;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;

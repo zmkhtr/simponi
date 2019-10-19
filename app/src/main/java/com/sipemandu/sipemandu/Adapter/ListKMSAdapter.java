@@ -1,17 +1,15 @@
 package com.sipemandu.sipemandu.Adapter;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sipemandu.sipemandu.R;
-import com.sipemandu.sipemandu.Room.Model.DataKMS;
+import com.sipemandu.sipemandu.Model.DataKMS;
 
 import java.util.ArrayList;
 import java.util.List;

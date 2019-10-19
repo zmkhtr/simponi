@@ -6,12 +6,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.widget.TextView;
 
+import com.sipemandu.sipemandu.BuildConfig;
 import com.sipemandu.sipemandu.R;
 import com.sipemandu.sipemandu.UI.LoginActivity.LoginActivity;
 
 public class SplashScreenActivity extends AppCompatActivity {
     private static final String TAG = "SplashScreenActivity";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +33,9 @@ public class SplashScreenActivity extends AppCompatActivity {
             }
         }, SPLASH_DISPLAY_LENGTH);
         hideActionbar();
-        
+
+        TextView appVersion = findViewById(R.id.textSplashVersion);
+        appVersion.setText(BuildConfig.VERSION_NAME);
     }
 
     public void hideActionbar(){

@@ -1,17 +1,9 @@
 package com.sipemandu.sipemandu.Utils;
 
-import android.Manifest;
-import android.app.Activity;
-import android.content.Context;
-import android.content.pm.PackageManager;
 import android.os.Environment;
 import android.util.Log;
 
-import androidx.core.app.ActivityCompat;
-
-import com.sipemandu.sipemandu.Room.Model.DataAnak;
-import com.sipemandu.sipemandu.Room.Model.DataAnakOrtu;
-import com.sipemandu.sipemandu.Room.Model.DataKMS;
+import com.sipemandu.sipemandu.Model.DataKMS;
 
 import org.joda.time.LocalDate;
 import org.joda.time.Period;
@@ -24,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import jxl.Sheet;
 import jxl.Workbook;
 import jxl.WorkbookSettings;
 import jxl.write.Label;
@@ -142,22 +133,18 @@ public class ReportUtil {
 //                sheet.addCell(label8);
 //                sheet.addCell(label9);
             } catch (RowsExceededException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             } catch (WriteException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
             workbook.write();
             try {
                 workbook.close();
             } catch (WriteException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
             //createExcel(excelSheet);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return true;
