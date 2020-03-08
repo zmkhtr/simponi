@@ -1,7 +1,10 @@
 package com.sipemandu.sipemandu.Model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 //@Entity(tableName = "data_kms_detail_table")
-public class DataKMSDetail {
+public class DataKMSDetail implements Parcelable {
 
 //    @PrimaryKey
     private int id;
@@ -57,4 +60,39 @@ public class DataKMSDetail {
     public void setKet_tb(String ket_tb) {
         this.ket_tb = ket_tb;
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeValue(this.bb);
+        dest.writeString(this.ket_bb);
+        dest.writeValue(this.tb);
+        dest.writeString(this.ket_tb);
+    }
+
+    protected DataKMSDetail(Parcel in) {
+        this.id = in.readInt();
+        this.bb = (Double) in.readValue(Double.class.getClassLoader());
+        this.ket_bb = in.readString();
+        this.tb = (Double) in.readValue(Double.class.getClassLoader());
+        this.ket_tb = in.readString();
+    }
+
+    public static final Parcelable.Creator<DataKMSDetail> CREATOR = new Parcelable.Creator<DataKMSDetail>() {
+        @Override
+        public DataKMSDetail createFromParcel(Parcel source) {
+            return new DataKMSDetail(source);
+        }
+
+        @Override
+        public DataKMSDetail[] newArray(int size) {
+            return new DataKMSDetail[size];
+        }
+    };
 }

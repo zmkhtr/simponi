@@ -2,10 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.sipemandu.sipemandu">
 
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.NFC" />
-    <uses-feature android:name="android.hardware.nfc" android:required="false"/>
+
+    <uses-feature
+        android:name="android.hardware.nfc"
+        android:required="false" />
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
@@ -16,14 +19,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".UI.BlankContainer.BlankActivity"
-            android:parentActivityName=".UI.BlankContainer.BlankActivity"
-            android:resizeableActivity="false"
+        <activity android:name=".UI.GrafikActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".UI.LoginActivity.LoginActivity"
+        <activity
+            android:name=".UI.BlankContainer.BlankActivity"
             android:resizeableActivity="false"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".UI.SplashScreen.SplashScreenActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UI.LoginActivity.LoginActivity"
+            android:resizeableActivity="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UI.SplashScreen.SplashScreenActivity"
             android:resizeableActivity="false"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -33,9 +40,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".UI.MainActivity.MainActivity"
+        <activity
+            android:name=".UI.MainActivity.MainActivity"
             android:resizeableActivity="false"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

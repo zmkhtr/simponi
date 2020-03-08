@@ -1,6 +1,7 @@
 package com.sipemandu.sipemandu.UI.DetailAnakFragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -11,10 +12,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +26,7 @@ import com.rx2androidnetworking.Rx2AndroidNetworking;
 import com.sipemandu.sipemandu.Adapter.ListKMSDetailAdapter;
 import com.sipemandu.sipemandu.R;
 import com.sipemandu.sipemandu.Model.DataKMSDetail;
+import com.sipemandu.sipemandu.UI.GrafikActivity;
 import com.sipemandu.sipemandu.Utils.ReportUtil;
 import com.sipemandu.sipemandu.Utils.URLs;
 import com.sipemandu.sipemandu.Utils.SessionManager;
@@ -52,6 +56,9 @@ public class DetailAnakFragment extends Fragment {
     private ListKMSDetailAdapter adapterKMS = new ListKMSDetailAdapter();
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
+    private Button btnChart;
+
+    public static boolean resume = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -72,6 +79,7 @@ public class DetailAnakFragment extends Fragment {
         tinggiBadan = itemView.findViewById(R.id.textItemAnakTinggiBadan);
         asiEksklusif = itemView.findViewById(R.id.textItemAnakAsiEks);
         progressBar = itemView.findViewById(R.id.pbDetailAnakLoading);
+        btnChart = itemView.findViewById(R.id.btnDetailAnakLihatGrafik);
         mContext = itemView.getContext();
         sessionManager = new SessionManager(mContext);
         recyclerView = itemView.findViewById(R.id.recyclerListDetail);
@@ -80,6 +88,24 @@ public class DetailAnakFragment extends Fragment {
         recyclerView.setAdapter(adapterKMS);
 
         displayDetailAnak();
+
+        btnChart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, GrafikActivity.class);
+                intent.putExtra("KMS_KEY", (ArrayList<? extends Parcelable>) dataKMS);
+                intent.putExtra("NAMA_KEY", namaAnak.getText().toString());
+                startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (resume){
+            displayDetailAnak();
+        };
     }
 
     private void displayDetailAnak() {
@@ -163,6 +189,8 @@ public class DetailAnakFragment extends Fragment {
                 });
 
     }
+
+
 
     @Override
     public void onDestroy() {

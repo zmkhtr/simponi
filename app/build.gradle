@@ -75,4 +75,6 @@ dependencies {
 
     implementation 'joda-time:joda-time:2.10.3'
     implementation files('libs/jxl-2.6.12.jar')
+
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 }

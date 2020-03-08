@@ -72,6 +72,10 @@ public class ListKMSDetailAdapter extends RecyclerView.Adapter<ListKMSDetailAdap
         }
     }
 
+    public List<DataKMSDetail> getList(){
+        return mDataKMS;
+    }
+
     public interface OnItemClick {
         void onItemClick(int position);
     }

@@ -1,5 +1,6 @@
 package com.sipemandu.sipemandu.UI.BlankContainer;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 
 import com.sipemandu.sipemandu.UI.FormFragment.FormFragment;
 import com.sipemandu.sipemandu.UI.ItemFragment.ItemFragment;
@@ -61,8 +63,15 @@ public class BlankActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
 
-
+        return(super.onOptionsItemSelected(item));
+    }
 
     public void setActionBar(){
         ActionBar ab = getSupportActionBar();

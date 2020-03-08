@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -175,16 +175,26 @@
             android:textStyle="bold"
             android:padding="5dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerListDetail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-
     </LinearLayout>
 
     <ProgressBar
         android:id="@+id/pbDetailAnakLoading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
-</FrameLayout>
+        android:layout_centerInParent="true"/>
+
+    <Button
+        android:id="@+id/btnDetailAnakLihatGrafik"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="Lihat Grafik Perkembangan Anak"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/colorPrimary"/>
+</RelativeLayout>
