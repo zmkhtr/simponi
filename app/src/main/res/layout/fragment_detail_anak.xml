@@ -188,13 +188,33 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"/>
 
-    <Button
-        android:id="@+id/btnDetailAnakLihatGrafik"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:text="Lihat Grafik Perkembangan Anak"
+        android:orientation="horizontal"
+        android:weightSum="100"
+        android:layout_alignParentBottom="true">
+
+    <Button
+        android:id="@+id/btnDetailAnakLihatGrafik"
+        android:layout_width="0dp"
+        android:layout_weight="50"
+        android:layout_height="wrap_content"
+        android:text="Lihat Grafik Berat Badan"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:backgroundTint="@color/colorPrimary"/>
+
+        <Button
+            android:id="@+id/btnDetailAnakLihatGrafikTinggi"
+            android:layout_width="0dp"
+            android:layout_weight="50"
+            android:layout_height="wrap_content"
+            android:text="Lihat Grafik Tinggi Badan"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/colorPrimary"/>
+
+
+    </LinearLayout>
 </RelativeLayout>

@@ -11,4 +11,6 @@ public class URLs {
     public static final String END_POINT_ENTRY_POSYANDU = "/data/kms/"; // + {id}  -->id == id anak
     public static final String END_POINT_LAPORAN_HARIAN = "/data/kms/harian/"; // + {created_at} format tgl == 2019-05-10
     public static final String END_POINT_LAPORAN_ANAK = "/data/kms/anak/"; // + {id} -->id == id anak
+
+//    http://simponi.id/api/data/kms/anak
 }

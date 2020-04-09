@@ -56,7 +56,7 @@ public class DetailAnakFragment extends Fragment {
     private ListKMSDetailAdapter adapterKMS = new ListKMSDetailAdapter();
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
-    private Button btnChart;
+    private Button btnChart, btnChartTinggi;
 
     public static boolean resume = false;
 
@@ -80,6 +80,7 @@ public class DetailAnakFragment extends Fragment {
         asiEksklusif = itemView.findViewById(R.id.textItemAnakAsiEks);
         progressBar = itemView.findViewById(R.id.pbDetailAnakLoading);
         btnChart = itemView.findViewById(R.id.btnDetailAnakLihatGrafik);
+        btnChartTinggi = itemView.findViewById(R.id.btnDetailAnakLihatGrafikTinggi);
         mContext = itemView.getContext();
         sessionManager = new SessionManager(mContext);
         recyclerView = itemView.findViewById(R.id.recyclerListDetail);
@@ -95,6 +96,20 @@ public class DetailAnakFragment extends Fragment {
                 Intent intent = new Intent(mContext, GrafikActivity.class);
                 intent.putExtra("KMS_KEY", (ArrayList<? extends Parcelable>) dataKMS);
                 intent.putExtra("NAMA_KEY", namaAnak.getText().toString());
+                intent.putExtra("JENIS_KELAMIN_KEY", jenisKelamin.getText().toString());
+                intent.putExtra("CHART_KEY","bb");
+                startActivity(intent);
+            }
+        });
+
+        btnChartTinggi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, GrafikActivity.class);
+                intent.putExtra("KMS_KEY", (ArrayList<? extends Parcelable>) dataKMS);
+                intent.putExtra("NAMA_KEY", namaAnak.getText().toString());
+                intent.putExtra("JENIS_KELAMIN_KEY", jenisKelamin.getText().toString());
+                intent.putExtra("CHART_KEY","tb");
                 startActivity(intent);
             }
         });
