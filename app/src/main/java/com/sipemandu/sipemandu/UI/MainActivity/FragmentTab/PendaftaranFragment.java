@@ -1,11 +1,15 @@
 package com.sipemandu.sipemandu.UI.MainActivity.FragmentTab;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -16,10 +20,12 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rx2androidnetworking.Rx2AndroidNetworking;
+import com.sipemandu.sipemandu.QRScannerActivity;
 import com.sipemandu.sipemandu.R;
 import com.sipemandu.sipemandu.UI.BlankContainer.BlankActivity;
 import com.sipemandu.sipemandu.UI.MainActivity.MainActivity;
@@ -44,12 +50,15 @@ import static com.sipemandu.sipemandu.UI.MainActivity.MainActivity.EXTRA_TITLE;
 
 public class PendaftaranFragment extends Fragment {
     private static final String TAG = "PendaftaranFragment";
+    private static final int MY_PERMISSIONS_REQUEST_CAMERA = 555;
 
     private SessionManager sessionManager;
     private Context mContext;
     private EditText mSearchNamaAnak;
     private Button mButton;
+    private ImageView mQRCode;
 //    private Button mScanKTP;
+
     private CompositeDisposable disposable = new CompositeDisposable();
 
     @Override
@@ -65,6 +74,7 @@ public class PendaftaranFragment extends Fragment {
         sessionManager = new SessionManager(mContext);
         mSearchNamaAnak = view.findViewById(R.id.searchPendaftaranNamaAnak);
         mButton = view.findViewById(R.id.btnPendaftaranCari);
+        mQRCode = view.findViewById(R.id.btnPendaftaranQRCode);
 //        mScanKTP = view.findViewById(R.id.scanKTP);
         processCari();
 
@@ -74,6 +84,22 @@ public class PendaftaranFragment extends Fragment {
 //                getMainProceed("dy1238yhfjds1234", mContext);
 //            }
 //        });
+
+        camera();
+         mQRCode.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 Log.d(TAG, "onClick: test test");
+                 Intent intent = new Intent(mContext, QRScannerActivity.class);
+                 startActivity(intent);
+             }
+         });
+    }
+
+    private void camera(){
+        if (ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[] {Manifest.permission.CAMERA}, MY_PERMISSIONS_REQUEST_CAMERA);
+        }
     }
 
     private void processCari(){

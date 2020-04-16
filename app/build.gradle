@@ -6,7 +6,7 @@ android {
     compileSdkVersion 29
     defaultConfig {
         applicationId "com.sipemandu.sipemandu"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 29
         versionCode 10
         versionName "v2.0 final"
@@ -77,4 +77,7 @@ dependencies {
     implementation files('libs/jxl-2.6.12.jar')
 
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
+    //qrcode
+    implementation 'com.budiyev.android:code-scanner:2.1.0'
 }

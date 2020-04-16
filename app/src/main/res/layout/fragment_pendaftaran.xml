@@ -16,7 +16,9 @@
             android:layout_width="0dp"
             android:layout_weight="4"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_10sdp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="0dp"
             android:imeOptions="actionDone"
             style="@style/Widget.AppCompat.SearchView"
             android:inputType="text"
@@ -25,7 +27,8 @@
             android:hint="@string/ketik_nama_anak"
             android:singleLine="true"
             android:drawableLeft="@drawable/ic_search"
-            android:padding="10dp"/>
+            android:padding="10dp" />
+
 
 
         <Button
@@ -34,9 +37,23 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:background="@drawable/rectangle_blue"
-            android:layout_margin="@dimen/_10sdp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
             android:textColor="#fff"
-            android:text="@string/cari"/>
+            android:text="@string/cari" />
+        <ImageView
+            android:id="@+id/btnPendaftaranQRCode"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_height="?android:attr/actionBarSize"
+            android:src="@drawable/scan"/>
     </LinearLayout>
 
 
@@ -63,11 +80,13 @@
             android:textSize="24sp"
             android:textColor="#000"
             android:textAlignment="center"
-            android:padding="5dp"/>
+            android:padding="5dp"
+            android:layout_gravity="center_horizontal" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
+            android:layout_gravity="center_horizontal"
             android:textSize="16sp"
             android:text="@string/tempelkan_ktp_dibelakang_perangkat"
             android:padding="5dp"
