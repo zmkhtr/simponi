@@ -126,15 +126,30 @@
                 android:layout_marginLeft="15dp" />
         </LinearLayout>
 
-        <Button
-            android:id="@+id/btnUpdateData"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:background="@drawable/rectangle_blue"
+            android:orientation="horizontal"
+            android:layout_margin="15dp">
+            <Button
+                android:id="@+id/btnUpdateBatalkan"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#FF1100"
+                android:textColor="@color/white"
+                android:text="Batalkan"/>
+        <Button
+            android:id="@+id/btnUpdateData"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#4fbfa5"
             android:text="@string/update_data"
             android:textAllCaps="false"
             android:textColor="@color/white" />
+
+        </LinearLayout>
 
     </LinearLayout>
 </RelativeLayout>

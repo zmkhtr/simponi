@@ -39,7 +39,7 @@ public class UpdateFragment extends DialogFragment {
     private SessionManager sessionManager;
     private Context mContext;
     private EditText mBeratBadan, mTinggiBadan;
-    private Button mTambah;
+    private Button mTambah, btnUpdateBatalkan;
     private TextView mNamaAnak, mNamaOrtu, mUsiaAnak;
     private CompositeDisposable disposable = new CompositeDisposable();
 
@@ -65,6 +65,7 @@ public class UpdateFragment extends DialogFragment {
         mNamaAnak.setText(sessionManager.getNamaAnak());
         String namaOrtu = "Orang tua : " + sessionManager.getNamaOrtu();
         mUsiaAnak = view.findViewById(R.id.textUpdateUsiaAnak);
+        btnUpdateBatalkan = view.findViewById(R.id.btnUpdateBatalkan);
         mUsiaAnak.setText(sessionManager.getUsiaAnak());
         mNamaOrtu.setText(namaOrtu);
         Log.d(TAG, "onViewCreated: " + sessionManager.getIdAnak());
@@ -77,6 +78,13 @@ public class UpdateFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 validate();
+            }
+        });
+
+        btnUpdateBatalkan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
             }
         });
     }

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context=".UI.UpdateFragment.PilihanFragment">
+    <TextView
+        android:id="@+id/textPilihanNamaAnak"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:layout_gravity="center"
+        android:text="@string/nama_anak"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:text="Pilih menu yang ingin di Update:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"  />
+    <Button
+        android:id="@+id/buttonPilihanUpdateBBTB"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorPrimary"
+        android:textColor="@color/white"
+        android:text="Update Berat Badan dan TInggi badan"/>
+    <Button
+        android:id="@+id/buttonPilihanUpdateImunisasi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#9C27B0"
+        android:textColor="@color/white"
+        android:text="Update Imunisasi"/>
+    <Button
+        android:id="@+id/buttonPilihanUpdateVitamin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#00B0FF"
+        android:textColor="@color/white"
+        android:text="Update Vitamin"/>
+
+
+    <Button
+        android:id="@+id/buttonPilihanCancel"
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#FF1100"
+        android:textColor="@color/white"
+        android:text="Batalkan"/>
+</LinearLayout>

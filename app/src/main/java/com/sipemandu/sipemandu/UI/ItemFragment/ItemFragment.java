@@ -35,6 +35,7 @@ import com.sipemandu.sipemandu.UI.DetailAnakFragment.DetailAnakFragment;
 import com.sipemandu.sipemandu.R;
 import com.sipemandu.sipemandu.UI.MainActivity.MainActivity;
 import com.sipemandu.sipemandu.UI.TambahAnakFragment.TambahAnakFragment;
+import com.sipemandu.sipemandu.UI.UpdateFragment.PilihanFragment;
 import com.sipemandu.sipemandu.UI.UpdateFragment.UpdateFragment;
 import com.sipemandu.sipemandu.Utils.ReportUtil;
 import com.sipemandu.sipemandu.Utils.URLs;
@@ -422,8 +423,10 @@ public class ItemFragment extends Fragment implements ItemContract.View {
     }
 
     private void bottomDialogFragment() {
-        UpdateFragment myDiag = new UpdateFragment();
-        myDiag.show(getFragmentManager().beginTransaction().addToBackStack("UpdateFragment"), "UpdateFragment");
+        PilihanFragment myDiag = new PilihanFragment();
+        myDiag.show(getFragmentManager().beginTransaction().addToBackStack("pilihanFragment"), "pilihanFragment");
+//        UpdateFragment myDiag = new UpdateFragment();
+//        myDiag.show(getFragmentManager().beginTransaction().addToBackStack("UpdateFragment"), "UpdateFragment");
     }
 
 
