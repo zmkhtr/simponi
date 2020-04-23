@@ -66,7 +66,17 @@ public class VitaminFragment extends DialogFragment {
                  if (mRadioGroup.getCheckedRadioButtonId() == -1)
                      Toast.makeText(getActivity(), "Mohon pilih Vitamin terlebih dahulu", Toast.LENGTH_SHORT).show();
                  else
-                     sendVitamin();
+                     if (vitaminSelected.equals("Vitamin A Biru")){
+                         if (sessionManager.getUsiaBulanAnak() >= 6 && sessionManager.getUsiaBulanAnak() <= 11)
+                         sendVitamin();
+                         else
+                             Toast.makeText(getActivity(), "Usia belum 6 bulan atau sudah lebih dari 11 bulan", Toast.LENGTH_SHORT).show();
+                     } else if (vitaminSelected.equals("Vitamin A Merah")){
+                         if (sessionManager.getUsiaBulanAnak() >= 12 && sessionManager.getUsiaBulanAnak() <= 59)
+                             sendVitamin();
+                         else
+                             Toast.makeText(getActivity(), "Usia belum 12 bulan atau sudah lebih dari 59 bulan", Toast.LENGTH_SHORT).show();
+                     }
              }
          });
         mNamaAnak.setText(sessionManager.getNamaAnak());
@@ -88,7 +98,6 @@ public class VitaminFragment extends DialogFragment {
                 .retryOnConnectionFailure(true)
                 .connectTimeout(15, TimeUnit.SECONDS)
                 .build();
-
         AndroidNetworking.post(URLs.BASE_URL + URLs.END_POINT_INPUT_VITAMIN + sessionManager.getIdAnak())
                 .addHeaders("Authorization", "Bearer " + sessionManager.getUserToken())
                 .addBodyParameter("vita_biru", vitaminPost.getVita_biru())

@@ -489,7 +489,7 @@ public class ItemFragment extends Fragment implements ItemContract.View {
                 String usiaHariIni = period.getYears()
                                 + " Tahun " + period.getMonths()
                                 + " Bulan " + period.getDays() + " Hari";
-
+                sessionManager.setUsiaBulanAnak(period.getMonths());
                 sessionManager.setDataAnak(mDataAnakOrtu.getId(), mDataAnakOrtu.getNamaAnak(), mDataAnakOrtu.getNamaOrtu());
                 sessionManager.setUsiaAnak(usiaHariIni);
                 if (key.equals("nama_anak_laporan")) {
