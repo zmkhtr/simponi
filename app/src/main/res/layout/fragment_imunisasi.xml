@@ -25,30 +25,35 @@
         android:text="@string/pilih_imunisasi_yang_ingin_diberikan"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"  />
     <RadioGroup
+        android:id="@+id/radioGroupImunisasi"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <RadioButton
+            android:id="@+id/rbImunisasiBCG"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Imunisasi BCG"/>
-
         <RadioButton
+            android:id="@+id/rbImunisasiDPT"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Imunisasi DPT"/>
         <RadioButton
+            android:id="@+id/rbImunisasiPOLIO"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Imunisasi POLIO"/>
         <RadioButton
+            android:id="@+id/rbImunisasiCampak"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Imunisasi CAMPAK"/>
         <RadioButton
+            android:id="@+id/rbImunisasiHepatitis"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Imunisasi HEPATITIS"/>
+            android:text="Imunisasi HEPATITIS B"/>
     </RadioGroup>
     <LinearLayout
         android:layout_width="match_parent"

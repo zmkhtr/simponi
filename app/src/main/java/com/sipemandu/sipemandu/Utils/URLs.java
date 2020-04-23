@@ -12,5 +12,18 @@ public class URLs {
     public static final String END_POINT_LAPORAN_HARIAN = "/data/kms/harian/"; // + {created_at} format tgl == 2019-05-10
     public static final String END_POINT_LAPORAN_ANAK = "/data/kms/anak/"; // + {id} -->id == id anak
 
+    public static final String END_POINT_INPUT_VITAMIN = "/data/vitamin/"; // + {id} -->id == id anak
+    //vita_biru:2020-04-23
+    //vita_merah:2020-04-23
+    public static final String END_POINT_INPUT_IMUNISASI = "/data/imunisasi/"; // + {id} -->id == id anak
+    //hepatitisb:2020-04-23
+    //bcg:2020-04-23
+    //polio:2020-04-23
+    //campak:2020-04-23
+    //dpt:2020-04-23
+    public static final String END_POINT_INPUT_MAKANAN = "/data/makanan/"; // + {id} -->id == id anak
+    //makanan:telor gulung
+    public static final String END_POINT_HISTORY_ANAK = "/data/kms/anak/"; // + {id} -->id == id anak
+
 //    http://simponi.id/api/data/kms/anak
 }

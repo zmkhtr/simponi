@@ -22,7 +22,7 @@ import com.sipemandu.sipemandu.Utils.SessionManager;
  */
 public class PilihanFragment extends DialogFragment {
 
-    private Button mUpdateBBTB, mUpdateVitamin, mUpdateImunisasi, buttonPilihanCancel;
+    private Button mUpdateBBTB, mUpdateVitamin, mUpdateImunisasi, mUpdateMakanan, buttonPilihanCancel;
     private TextView mNamaAnak;
     private SessionManager sessionManager;
 
@@ -47,6 +47,7 @@ public class PilihanFragment extends DialogFragment {
         mUpdateVitamin = view.findViewById(R.id.buttonPilihanUpdateVitamin);
         mUpdateBBTB = view.findViewById(R.id.buttonPilihanUpdateBBTB);
         mUpdateImunisasi = view.findViewById(R.id.buttonPilihanUpdateImunisasi);
+        mUpdateMakanan = view.findViewById(R.id.buttonPilihanUpdateMakanan);
 
         buttonPilihanCancel = view.findViewById(R.id.buttonPilihanCancel);
         mNamaAnak.setText(sessionManager.getNamaAnak());
@@ -73,6 +74,13 @@ public class PilihanFragment extends DialogFragment {
             public void onClick(View v) {
                 VitaminFragment myDiag = new VitaminFragment();
                 myDiag.show(getFragmentManager().beginTransaction().addToBackStack("vitaminFragment"), "vitaminFragment");
+            }
+        });
+        mUpdateMakanan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MakananFragment myDiag = new MakananFragment();
+                myDiag.show(getFragmentManager().beginTransaction().addToBackStack("makananFragment"), "makananFragment");
             }
         });
         buttonPilihanCancel.setOnClickListener(new View.OnClickListener() {
