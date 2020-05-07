@@ -3,6 +3,7 @@ package com.sipemandu.sipemandu.UI.ItemFragment;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -33,6 +34,7 @@ import com.sipemandu.sipemandu.Model.DataAnakOrtu;
 import com.sipemandu.sipemandu.Model.DataKMS;
 import com.sipemandu.sipemandu.UI.DetailAnakFragment.DetailAnakFragment;
 import com.sipemandu.sipemandu.R;
+import com.sipemandu.sipemandu.UI.DetailAnakFragment.DetailBaru.DetailAnakActivity;
 import com.sipemandu.sipemandu.UI.MainActivity.MainActivity;
 import com.sipemandu.sipemandu.UI.TambahAnakFragment.TambahAnakFragment;
 import com.sipemandu.sipemandu.UI.UpdateFragment.PilihanFragment;
@@ -493,8 +495,10 @@ public class ItemFragment extends Fragment implements ItemContract.View {
                 sessionManager.setDataAnak(mDataAnakOrtu.getId(), mDataAnakOrtu.getNamaAnak(), mDataAnakOrtu.getNamaOrtu());
                 sessionManager.setUsiaAnak(usiaHariIni);
                 if (key.equals("nama_anak_laporan")) {
-                    DetailAnakFragment fragment = new DetailAnakFragment();
-                    getFragmentManager().beginTransaction().replace(R.id.blankContainer, fragment).addToBackStack("detailFragment").commit();
+                    Intent intent = new Intent(getContext(), DetailAnakActivity.class);
+                    startActivity(intent);
+//                    DetailAnakFragment fragment = new DetailAnakFragment();
+//                    getFragmentManager().beginTransaction().replace(R.id.blankContainer, fragment).addToBackStack("detailFragment").commit();
                 } else if (key.equals("nama_anak")) {
                     bottomDialogFragment();
                 }

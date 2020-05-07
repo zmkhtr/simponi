@@ -176,7 +176,7 @@ public class DetailAnakFragment extends Fragment {
                                     ));
                                 }
                                 recyclerView.setAdapter(adapterKMS);
-                                adapterKMS.setDataKMS(dataKMS);
+//                                adapterKMS.setDataKMS(dataKMS);
                                 if (adapterKMS.getItemCount() <= 0) {
                                     Toasty.info(mContext, "Belum ada riwayat", Toast.LENGTH_SHORT, true).show();
                                 }
@@ -217,6 +217,6 @@ public class DetailAnakFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        adapterKMS.clearList(dataKMS);
+//        adapterKMS.clearList(dataKMS);
     }
 }

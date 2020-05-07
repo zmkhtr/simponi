@@ -34,14 +34,14 @@
         android:id="@+id/buttonPilihanUpdateImunisasi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="#9C27B0"
+        android:backgroundTint="@color/colorBackgroundImunisasi"
         android:textColor="@color/white"
         android:text="Update Imunisasi"/>
     <Button
         android:id="@+id/buttonPilihanUpdateVitamin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="#00B0FF"
+        android:backgroundTint="@color/colorBackgroundVitamin"
         android:textColor="@color/white"
         android:text="Update Vitamin"/>
     <Button

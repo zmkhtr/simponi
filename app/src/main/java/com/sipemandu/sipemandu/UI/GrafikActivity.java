@@ -18,8 +18,8 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.sipemandu.sipemandu.Model.DataKMS;
-import com.sipemandu.sipemandu.Model.DataKMSDetail;
 import com.sipemandu.sipemandu.R;
+import com.sipemandu.sipemandu.UI.DetailAnakFragment.HistoryAnakObj.Km;
 import com.sipemandu.sipemandu.UI.MainActivity.MainActivity;
 
 import java.util.ArrayList;
@@ -52,30 +52,30 @@ public class GrafikActivity extends AppCompatActivity {
 //        intent.putExtra("KMS_KEY", (ArrayList<? extends Parcelable>) dataKMS);
 //        intent.putExtra("NAMA_KEY", namaAnak.getText().toString());
 
-        List<DataKMSDetail> dataKMSDetails = intent.getParcelableArrayListExtra("KMS_KEY");
-//        dataKMSDetails.add(new DataKMSDetail(1,10.0,"naik",39.0, "naik"));
-//        dataKMSDetails.add(new DataKMSDetail(1,20.0,"naik",49.0, "naik"));
-//        dataKMSDetails.add(new DataKMSDetail(1,30.0,"naik",50.0, "naik"));
-//        dataKMSDetails.add(new DataKMSDetail(1,30.0,"tetap",55.0, "naik"));
-//        dataKMSDetails.add(new DataKMSDetail(1,25.0,"turun",55.4, "naik"));
+        List<Km> Kms = intent.getParcelableArrayListExtra("KMS_KEY");
+//        Kms.add(new Km(1,10.0,"naik",39.0, "naik"));
+//        Kms.add(new Km(1,20.0,"naik",49.0, "naik"));
+//        Kms.add(new Km(1,30.0,"naik",50.0, "naik"));
+//        Kms.add(new Km(1,30.0,"tetap",55.0, "naik"));
+//        Kms.add(new Km(1,25.0,"turun",55.4, "naik"));
 //
-//        dataKMSDetails.add(new DataKMSDetail(1,10.0,"naik",39.0, "naik"));
-//        dataKMSDetails.add(new DataKMSDetail(1,20.0,"naik",49.0, "naik"));
-//        dataKMSDetails.add(new DataKMSDetail(1,30.0,"naik",50.0, "naik"));
-//        dataKMSDetails.add(new DataKMSDetail(1,30.0,"tetap",55.0, "naik"));
-//        dataKMSDetails.add(new DataKMSDetail(1,25.0,"turun",55.4, "naik"));
+//        Kms.add(new Km(1,10.0,"naik",39.0, "naik"));
+//        Kms.add(new Km(1,20.0,"naik",49.0, "naik"));
+//        Kms.add(new Km(1,30.0,"naik",50.0, "naik"));
+//        Kms.add(new Km(1,30.0,"tetap",55.0, "naik"));
+//        Kms.add(new Km(1,25.0,"turun",55.4, "naik"));
 
         List<Entry> entries = new ArrayList<>();
-        for (int i = 0; i < dataKMSDetails.size(); i++) {
-            entries.add(new Entry(i, dataKMSDetails.get(i).getTb().floatValue()));
+        for (int i = 0; i < Kms.size(); i++) {
+            entries.add(new Entry(i, Kms.get(i).getTb().floatValue()));
         }
         LineDataSet dataSet = new LineDataSet(entries, "Tinggi Badan Anak");
         dataSet.setColor(Color.RED);
         dataSet.setDrawCircles(true);
         dataSet.setDrawValues(true);
         List<Entry> bbEntries = new ArrayList<>();
-        for (int i = 0; i < dataKMSDetails.size(); i++) {
-            bbEntries.add(new Entry(4+i,dataKMSDetails.get(i).getBb().floatValue()-6f));
+        for (int i = 0; i < Kms.size(); i++) {
+            bbEntries.add(new Entry(4+i,Kms.get(i).getBb().floatValue()-6f));
         }
         LineDataSet bbDataSet = new LineDataSet(bbEntries, "Berat Badan Anak");
         bbDataSet.setColor(Color.BLACK);
@@ -270,11 +270,11 @@ public class GrafikActivity extends AppCompatActivity {
         Intent intent = getIntent();
         nama.setText(intent.getStringExtra("NAMA_KEY"));
 
-        List<DataKMSDetail> dataKMSDetails = intent.getParcelableArrayListExtra("KMS_KEY");
+        List<Km> Kms = intent.getParcelableArrayListExtra("KMS_KEY");
 
         List<Entry> bbEntries = new ArrayList<>();
-        for (int i = 0; i < dataKMSDetails.size(); i++) {
-            bbEntries.add(new Entry(8+i,dataKMSDetails.get(i).getBb().floatValue()-8f));
+        for (int i = 0; i < Kms.size(); i++) {
+            bbEntries.add(new Entry(8+i,Kms.get(i).getBb().floatValue()-8f));
         }
         LineDataSet bbDataSet = new LineDataSet(bbEntries, "Berat Badan Anak");
         bbDataSet.setColor(Color.BLACK);
@@ -403,11 +403,11 @@ public class GrafikActivity extends AppCompatActivity {
         Intent intent = getIntent();
         nama.setText(intent.getStringExtra("NAMA_KEY"));
 
-        List<DataKMSDetail> dataKMSDetails = intent.getParcelableArrayListExtra("KMS_KEY");
+        List<Km> Kms = intent.getParcelableArrayListExtra("KMS_KEY");
 
         List<Entry> TBentries = new ArrayList<>();
-        for (int i = 0; i < dataKMSDetails.size(); i++) {
-            TBentries.add(new Entry(8+i, dataKMSDetails.get(i).getTb().floatValue()-40f));
+        for (int i = 0; i < Kms.size(); i++) {
+            TBentries.add(new Entry(8+i, Kms.get(i).getTb().floatValue()-40f));
         }
         LineDataSet tbDataSet = new LineDataSet(TBentries, "Tinggi Badan Anak");
         tbDataSet.setColor(Color.BLACK);
@@ -490,11 +490,11 @@ public class GrafikActivity extends AppCompatActivity {
         Intent intent = getIntent();
         nama.setText(intent.getStringExtra("NAMA_KEY"));
 
-        List<DataKMSDetail> dataKMSDetails = intent.getParcelableArrayListExtra("KMS_KEY");
+        List<Km> Kms = intent.getParcelableArrayListExtra("KMS_KEY");
 
         List<Entry> bbEntries = new ArrayList<>();
-        for (int i = 0; i < dataKMSDetails.size(); i++) {
-            bbEntries.add(new Entry(8+i,dataKMSDetails.get(i).getBb().floatValue()-62f));
+        for (int i = 0; i < Kms.size(); i++) {
+            bbEntries.add(new Entry(8+i,Kms.get(i).getBb().floatValue()-62f));
         }
         LineDataSet bbDataSet = new LineDataSet(bbEntries, "Berat Badan Anak");
         bbDataSet.setColor(Color.BLACK);
@@ -577,11 +577,11 @@ public class GrafikActivity extends AppCompatActivity {
         Intent intent = getIntent();
         nama.setText(intent.getStringExtra("NAMA_KEY"));
 
-        List<DataKMSDetail> dataKMSDetails = intent.getParcelableArrayListExtra("KMS_KEY");
+        List<Km> Kms = intent.getParcelableArrayListExtra("KMS_KEY");
 
         List<Entry> TBentries = new ArrayList<>();
-        for (int i = 0; i < dataKMSDetails.size(); i++) {
-            TBentries.add(new Entry(8+i, dataKMSDetails.get(i).getTb().floatValue()));
+        for (int i = 0; i < Kms.size(); i++) {
+            TBentries.add(new Entry(8+i, Kms.get(i).getTb().floatValue()));
         }
         LineDataSet tbDataSet = new LineDataSet(TBentries, "Tinggi Badan Anak");
         tbDataSet.setColor(Color.BLACK);

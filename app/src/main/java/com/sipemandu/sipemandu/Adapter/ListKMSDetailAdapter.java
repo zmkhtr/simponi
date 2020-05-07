@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sipemandu.sipemandu.R;
-import com.sipemandu.sipemandu.Model.DataKMSDetail;
+import com.sipemandu.sipemandu.UI.DetailAnakFragment.HistoryAnakObj.Km;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,7 @@ import java.util.List;
 public class ListKMSDetailAdapter extends RecyclerView.Adapter<ListKMSDetailAdapter.Viewholder> {
     private static final String TAG = "ListAnakAdapter";
 
-    private List<DataKMSDetail> mDataKMS = new ArrayList<>();
+    private List<Km> mDataKMS = new ArrayList<>();
     private OnItemClick listener;
 
     @NonNull
@@ -30,9 +30,9 @@ public class ListKMSDetailAdapter extends RecyclerView.Adapter<ListKMSDetailAdap
 
     @Override
     public void onBindViewHolder(@NonNull Viewholder holder, int position) {
-        DataKMSDetail dataKMS = mDataKMS.get(position);
-            holder.statusBerat.setText(dataKMS.getKet_bb());
-            holder.statusTInggi.setText(dataKMS.getKet_tb());
+        Km dataKMS = mDataKMS.get(position);
+            holder.statusBerat.setText(dataKMS.getKetBb());
+            holder.statusTInggi.setText(dataKMS.getKetTb());
             holder.beratBadan.setText(Double.toString(dataKMS.getBb()));
             holder.tinggiBadan.setText(Double.toString(dataKMS.getTb()));
     }
@@ -43,11 +43,11 @@ public class ListKMSDetailAdapter extends RecyclerView.Adapter<ListKMSDetailAdap
     }
 
 
-    public void setDataKMS(List<DataKMSDetail> dataKMS) {
+    public void setDataKMS(List<Km> dataKMS) {
         this.mDataKMS = dataKMS;
         notifyDataSetChanged();
     }
-    public void clearList(List<DataKMSDetail> dataAnak) {
+    public void clearList(List<Km> dataAnak) {
         this.mDataKMS = dataAnak;
         dataAnak.clear();
     }
@@ -72,7 +72,7 @@ public class ListKMSDetailAdapter extends RecyclerView.Adapter<ListKMSDetailAdap
         }
     }
 
-    public List<DataKMSDetail> getList(){
+    public List<Km> getList(){
         return mDataKMS;
     }
 
