@@ -28,7 +28,7 @@ public class ResponseAnak implements Parcelable {
     private Vitamin vitamin;
     @SerializedName("makanan")
     @Expose
-    private Makanan makanan;
+    private List<Makanan> makanan = null;
 
 
 
@@ -72,11 +72,11 @@ public class ResponseAnak implements Parcelable {
         this.vitamin = vitamin;
     }
 
-    public Makanan getMakanan() {
+    public List<Makanan> getMakanan() {
         return makanan;
     }
 
-    public void setMakanan(Makanan makanan) {
+    public void setMakanan(List<Makanan> makanan) {
         this.makanan = makanan;
     }
 
@@ -92,7 +92,7 @@ public class ResponseAnak implements Parcelable {
         dest.writeList(this.kms);
         dest.writeParcelable(this.imunisasi, flags);
         dest.writeParcelable(this.vitamin, flags);
-        dest.writeParcelable(this.makanan, flags);
+        dest.writeList(this.makanan);
     }
 
     public ResponseAnak() {

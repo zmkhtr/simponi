@@ -30,7 +30,7 @@ public class SessionManager {
     private static final String NAMA_ANAK = "namaAnak";
     private static final String USIA_ANAK = "usiaAnak";
 
-    private static final String USIA_BULAN_ANAK = "usiaAnak";
+    private static final String USIA_BULAN_ANAK = "usiaBulanAnak";
 
     public SessionManager(Context context) {
         int PRIVATE_MODE = 0;

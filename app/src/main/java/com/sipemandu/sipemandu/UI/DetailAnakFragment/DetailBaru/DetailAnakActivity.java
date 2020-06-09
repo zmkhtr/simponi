@@ -1,5 +1,7 @@
 package com.sipemandu.sipemandu.UI.DetailAnakFragment.DetailBaru;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -8,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -17,10 +20,12 @@ import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.ParsedRequestListener;
 import com.rx2androidnetworking.Rx2AndroidNetworking;
 import com.sipemandu.sipemandu.Adapter.ListKMSDetailAdapter;
+import com.sipemandu.sipemandu.Adapter.ListMakananAdapter;
 import com.sipemandu.sipemandu.R;
 import com.sipemandu.sipemandu.UI.DetailAnakFragment.HistoryAnakObj.Anak;
 import com.sipemandu.sipemandu.UI.DetailAnakFragment.HistoryAnakObj.Imunisasi;
 import com.sipemandu.sipemandu.UI.DetailAnakFragment.HistoryAnakObj.Km;
+import com.sipemandu.sipemandu.UI.DetailAnakFragment.HistoryAnakObj.Makanan;
 import com.sipemandu.sipemandu.UI.DetailAnakFragment.HistoryAnakObj.ResponseAnak;
 import com.sipemandu.sipemandu.UI.DetailAnakFragment.HistoryAnakObj.Vitamin;
 import com.sipemandu.sipemandu.UI.GrafikActivity;
@@ -38,19 +43,22 @@ import es.dmoral.toasty.Toasty;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 
+import static com.sipemandu.sipemandu.UI.DetailAnakFragment.DetailAnakFragment.resume;
+
 public class DetailAnakActivity extends AppCompatActivity {
     private static final String TAG = "DetailAnakActivity";
 
     private SessionManager sessionManager;
     private ResponseAnak responseAnak;
-    private RecyclerView recyclerViewKMS;
+    private RecyclerView recyclerViewKMS, recyclerViewMakanan;
     private TextView textImmunisasi;
     private TextView textVitamin;
     private TextView textEmpty;
-    private Button mImunisasi, mVitamin, mKMS;
+    private Button mImunisasi, mVitamin, mKMS, mMakanan;
     private ProgressBar progressBar;
     private Button btnChart, btnChartTinggi;
     private ListKMSDetailAdapter adapterKMS = new ListKMSDetailAdapter();
+    private ListMakananAdapter adapterMakanan = new ListMakananAdapter();
 
     private TextView namaOrangTua, namaAnak, jenisKelamin, tanggalLahir, beratBadan, tinggiBadan, asiEksklusif, nikAnak;
 
@@ -59,6 +67,12 @@ public class DetailAnakActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_anak);
+
+
+        ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
+        ab.setTitle("Detail Anak");
+        ab.setHomeAsUpIndicator(R.drawable.ic_back_arrow_white_48png);
 
         sessionManager = new SessionManager(getApplicationContext());
 
@@ -74,6 +88,7 @@ public class DetailAnakActivity extends AppCompatActivity {
 
         progressBar = findViewById(R.id.pbDetailAnakLoading);
         recyclerViewKMS = findViewById(R.id.recyclerListDetail);
+        recyclerViewMakanan = findViewById(R.id.recyclerListMakanan);
         textImmunisasi = findViewById(R.id.textDetailImunisasi);
         textVitamin = findViewById(R.id.textDetailVitamin);
         textEmpty = findViewById(R.id.textKMSEmpty);
@@ -81,6 +96,7 @@ public class DetailAnakActivity extends AppCompatActivity {
         mImunisasi = findViewById(R.id.buttonDetailImunisasi);
         mVitamin = findViewById(R.id.buttonDetailVitamin);
         mKMS = findViewById(R.id.buttonDetailKMS);
+        mMakanan = findViewById(R.id.buttonDetailMakanan);
 
         btnChart = findViewById(R.id.btnDetailAnakLihatGrafik);
         btnChartTinggi = findViewById(R.id.btnDetailAnakLihatGrafikTinggi);
@@ -88,6 +104,10 @@ public class DetailAnakActivity extends AppCompatActivity {
         recyclerViewKMS.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recyclerViewKMS.setHasFixedSize(true);
         recyclerViewKMS.setAdapter(adapterKMS);
+
+        recyclerViewMakanan.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        recyclerViewMakanan.setHasFixedSize(true);
+        recyclerViewMakanan.setAdapter(adapterMakanan);
 
         getData();
         buttonState();
@@ -140,8 +160,14 @@ public class DetailAnakActivity extends AppCompatActivity {
                         if (!response.getError()){
                             responseAnak = response;
                             setKMSRecyclerView(responseAnak.getKms());
+                            setMakananRecyclerView(responseAnak.getMakanan());
+
+                            if (responseAnak.getImunisasi() != null)
                             setImunisasi(responseAnak.getImunisasi());
+
+                            if (responseAnak.getVitamin() != null)
                             setVitamin(responseAnak.getVitamin());
+
                             setDataAnak(responseAnak.getAnak());
                         } else {
                             Toasty.error(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
@@ -185,20 +211,36 @@ public class DetailAnakActivity extends AppCompatActivity {
         mImunisasi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                recyclerViewKMS.setVisibility(View.GONE);
-                textImmunisasi.setVisibility(View.VISIBLE);
-                textEmpty.setVisibility(View.GONE);
-                textVitamin.setVisibility(View.GONE);
+                Log.d(TAG, "onClick: " + responseAnak.getImunisasi());
+                if (responseAnak.getImunisasi() != null){
+                    recyclerViewMakanan.setVisibility(View.GONE);
+                    recyclerViewKMS.setVisibility(View.GONE);
+                    textImmunisasi.setVisibility(View.VISIBLE);
+                    textEmpty.setVisibility(View.GONE);
+                    textVitamin.setVisibility(View.GONE);
+                } else {
+                    textEmpty.setText("Tidak ada Riwayat Imunisasi");
+                    textEmpty.setVisibility(View.VISIBLE);
+                }
             }
         });
 
         mVitamin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                recyclerViewKMS.setVisibility(View.GONE);
-                textImmunisasi.setVisibility(View.GONE);
-                textEmpty.setVisibility(View.GONE);
-                textVitamin.setVisibility(View.VISIBLE);
+
+                Log.d(TAG, "onClick: " + responseAnak.getVitamin());
+                if (responseAnak.getVitamin() != null){
+                    recyclerViewMakanan.setVisibility(View.GONE);
+                    recyclerViewKMS.setVisibility(View.GONE);
+                    textImmunisasi.setVisibility(View.GONE);
+                    textEmpty.setVisibility(View.GONE);
+                    textVitamin.setVisibility(View.VISIBLE);
+                } else {
+                    textEmpty.setText("Tidak ada Riwayat Vitamin");
+                    textEmpty.setVisibility(View.VISIBLE);
+                }
+
             }
         });
 
@@ -206,10 +248,30 @@ public class DetailAnakActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (responseAnak.getKms() == null)
+                if (responseAnak.getKms() == null || responseAnak.getKms().isEmpty()){
+                    textEmpty.setText("Tidak ada Riwayat KMS");
                     textEmpty.setVisibility(View.VISIBLE);
+                }
 
+                recyclerViewMakanan.setVisibility(View.GONE);
                 recyclerViewKMS.setVisibility(View.VISIBLE);
+                textImmunisasi.setVisibility(View.GONE);
+
+                textVitamin.setVisibility(View.GONE);
+            }
+        });
+
+        mMakanan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (responseAnak.getMakanan() == null || responseAnak.getMakanan().isEmpty()){
+                    textEmpty.setText("Tidak ada Riwayat Makanan");
+                    textEmpty.setVisibility(View.VISIBLE);
+                }
+
+
+                recyclerViewMakanan.setVisibility(View.VISIBLE);
+                recyclerViewKMS.setVisibility(View.GONE);
                 textImmunisasi.setVisibility(View.GONE);
 
                 textVitamin.setVisibility(View.GONE);
@@ -221,6 +283,15 @@ public class DetailAnakActivity extends AppCompatActivity {
         recyclerViewKMS.setAdapter(adapterKMS);
         adapterKMS.setDataKMS(kms);
         if (adapterKMS.getItemCount() <= 0) {
+            textEmpty.setVisibility(View.VISIBLE);
+            Toasty.info(getApplicationContext(), "Belum ada riwayat", Toast.LENGTH_SHORT, true).show();
+        }
+    }
+
+    private void setMakananRecyclerView(List<Makanan> makanan){
+        recyclerViewMakanan.setAdapter(adapterMakanan);
+        adapterMakanan.setDataMakananS(makanan);
+        if (adapterMakanan.getItemCount() <= 0) {
             textEmpty.setVisibility(View.VISIBLE);
             Toasty.info(getApplicationContext(), "Belum ada riwayat", Toast.LENGTH_SHORT, true).show();
         }
@@ -335,5 +406,20 @@ public class DetailAnakActivity extends AppCompatActivity {
 
         String concat = "Riwayat Vitamin Anak : " + "\n" + vitaminBiru + vitaminMerah1 + vitaminMerah2 + vitaminMerah3 + vitaminMerah4 + vitaminMerah5 + vitaminMerah6 + vitaminMerah7 + vitaminMerah8;
         textVitamin.setText(concat);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+
+        return(super.onOptionsItemSelected(item));
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }
