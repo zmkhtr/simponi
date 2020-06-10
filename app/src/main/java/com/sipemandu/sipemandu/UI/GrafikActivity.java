@@ -295,7 +295,7 @@ public class GrafikActivity extends AppCompatActivity {
 
         List<Entry> bbEntries = new ArrayList<>();
         for (int i = 0; i < Kms.size(); i++) {
-            bbEntries.add(new Entry(8+i,Kms.get(i).getBb().floatValue()-8f));
+            bbEntries.add(new Entry(Kms.get(i).getBulan(),Kms.get(i).getBb().floatValue()));
         }
         LineDataSet bbDataSet = new LineDataSet(bbEntries, "Berat Badan Anak");
         bbDataSet.setColor(Color.BLACK);
@@ -382,7 +382,7 @@ public class GrafikActivity extends AppCompatActivity {
 
         List<Entry> TBentries = new ArrayList<>();
         for (int i = 0; i < Kms.size(); i++) {
-            TBentries.add(new Entry(8+i, Kms.get(i).getTb().floatValue()-40f));
+            TBentries.add(new Entry(Kms.get(i).getBulan(), Kms.get(i).getTb().floatValue()));
         }
         LineDataSet tbDataSet = new LineDataSet(TBentries, "Tinggi Badan Anak");
         tbDataSet.setColor(Color.BLACK);
@@ -469,7 +469,7 @@ public class GrafikActivity extends AppCompatActivity {
 
         List<Entry> bbEntries = new ArrayList<>();
         for (int i = 0; i < Kms.size(); i++) {
-            bbEntries.add(new Entry(8+i,Kms.get(i).getBb().floatValue()-62f));
+            bbEntries.add(new Entry(Kms.get(i).getBulan(),Kms.get(i).getBb().floatValue()));
         }
         LineDataSet bbDataSet = new LineDataSet(bbEntries, "Berat Badan Anak");
         bbDataSet.setColor(Color.BLACK);
@@ -555,7 +555,7 @@ public class GrafikActivity extends AppCompatActivity {
 
         List<Entry> TBentries = new ArrayList<>();
         for (int i = 0; i < Kms.size(); i++) {
-            TBentries.add(new Entry(8+i, Kms.get(i).getTb().floatValue()));
+            TBentries.add(new Entry(Kms.get(i).getBulan(), Kms.get(i).getTb().floatValue()));
         }
         LineDataSet tbDataSet = new LineDataSet(TBentries, "Tinggi Badan Anak");
         tbDataSet.setColor(Color.BLACK);
@@ -642,7 +642,7 @@ public class GrafikActivity extends AppCompatActivity {
 
         List<Entry> bbEntries = new ArrayList<>();
         for (int i = 0; i < Kms.size(); i++) {
-            bbEntries.add(new Entry(8+i,Kms.get(i).getBb().floatValue()-8f));
+            bbEntries.add(new Entry(Kms.get(i).getBulan(),Kms.get(i).getBb().floatValue()));
         }
         LineDataSet bbDataSet = new LineDataSet(bbEntries, "Berat Badan Anak");
         bbDataSet.setColor(Color.BLACK);
@@ -729,7 +729,7 @@ public class GrafikActivity extends AppCompatActivity {
 
         List<Entry> TBentries = new ArrayList<>();
         for (int i = 0; i < Kms.size(); i++) {
-            TBentries.add(new Entry(8+i, Kms.get(i).getTb().floatValue()-40f));
+            TBentries.add(new Entry(Kms.get(i).getBulan(), Kms.get(i).getTb().floatValue()));
         }
         LineDataSet tbDataSet = new LineDataSet(TBentries, "Tinggi Badan Anak");
         tbDataSet.setColor(Color.BLACK);
@@ -815,7 +815,7 @@ public class GrafikActivity extends AppCompatActivity {
 
         List<Entry> bbEntries = new ArrayList<>();
         for (int i = 0; i < Kms.size(); i++) {
-            bbEntries.add(new Entry(8+i,Kms.get(i).getBb().floatValue()-62f));
+            bbEntries.add(new Entry(Kms.get(i).getBulan(),Kms.get(i).getBb().floatValue()));
         }
         LineDataSet bbDataSet = new LineDataSet(bbEntries, "Berat Badan Anak");
         bbDataSet.setColor(Color.BLACK);
@@ -901,7 +901,7 @@ public class GrafikActivity extends AppCompatActivity {
 
         List<Entry> TBentries = new ArrayList<>();
         for (int i = 0; i < Kms.size(); i++) {
-            TBentries.add(new Entry(8+i, Kms.get(i).getTb().floatValue()));
+            TBentries.add(new Entry(Kms.get(i).getBulan(), Kms.get(i).getTb().floatValue()));
         }
         LineDataSet tbDataSet = new LineDataSet(TBentries, "Tinggi Badan Anak");
         tbDataSet.setColor(Color.BLACK);
