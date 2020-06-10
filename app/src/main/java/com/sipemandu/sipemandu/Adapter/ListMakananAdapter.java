@@ -1,5 +1,9 @@
 package com.sipemandu.sipemandu.Adapter;
 
+import android.graphics.Typeface;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,8 +36,22 @@ public class ListMakananAdapter extends RecyclerView.Adapter<ListMakananAdapter.
     @Override
     public void onBindViewHolder(@NonNull Viewholder holder, int position) {
         Makanan makanan = mDataMakanan.get(position);
-        String dataMakanan = "Nama Makanan : " +  makanan.getNamaMakanan() + "\n\nTanggal Diberikan : " + makanan.getCreatedAt().substring(0,10);
-            holder.makanan.setText(dataMakanan);
+
+        String boldText = "Nama Makanan : ";
+        String normalText = makanan.getNamaMakanan();
+        SpannableString namaMakanan = new SpannableString(boldText + normalText);
+        namaMakanan.setSpan(new StyleSpan(Typeface.BOLD), 0, boldText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+
+        String boldText1 = "Tanggal pemberian : ";
+        String normalText1 = makanan.getCreatedAt().substring(0,10);
+        SpannableString tanggalDiberikan = new SpannableString(boldText1 + normalText1);
+        tanggalDiberikan.setSpan(new StyleSpan(Typeface.BOLD), 0, boldText1.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+//        String dataMakanan = namaMakanan.toString() +  "\n" + tanggalDiberikan.toString();
+//        String dataMakanan = namaMakanan +  "\n" + tanggalDiberikan;
+            holder.makanan.setText(namaMakanan);
+            holder.tanggal.setText(tanggalDiberikan);
     }
 
     @Override
@@ -53,12 +71,12 @@ public class ListMakananAdapter extends RecyclerView.Adapter<ListMakananAdapter.
 
 
     public class Viewholder extends RecyclerView.ViewHolder {
-        TextView  makanan;
+        TextView  makanan, tanggal;
 
         public Viewholder(@NonNull View itemView) {
             super(itemView);
             makanan = itemView.findViewById(R.id.textItemMakanan);
-
+            tanggal = itemView.findViewById(R.id.textItemTanggal);
 //            itemView.setOnClickListener(new View.OnClickListener() {
 //                @Override
 //                public void onClick(View v) {
