@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
@@ -31,7 +32,7 @@ import static com.sipemandu.sipemandu.UI.DetailAnakFragment.DetailAnakFragment.r
 public class GrafikActivity extends AppCompatActivity {
     private static final String TAG = "GrafikActivity";
     LineChart chart;
-    TextView nama;
+    TextView nama, stunting;
     SessionManager sessionManager;
 
     @Override
@@ -49,199 +50,8 @@ public class GrafikActivity extends AppCompatActivity {
     private void findView(){
         chart =  findViewById(R.id.chartGrafikDataAnak);
         nama = findViewById(R.id.textGrafikNamaAnak);
-    }
+        stunting = findViewById(R.id.textGrafikStunting);
 
-    private void setChartData(){
-        Intent intent = getIntent();
-        nama.setText(intent.getStringExtra("NAMA_KEY"));
-//        intent.putExtra("KMS_KEY", (ArrayList<? extends Parcelable>) dataKMS);
-//        intent.putExtra("NAMA_KEY", namaAnak.getText().toString());
-
-        List<Km> Kms = intent.getParcelableArrayListExtra("KMS_KEY");
-//        Kms.add(new Km(1,10.0,"naik",39.0, "naik"));
-//        Kms.add(new Km(1,20.0,"naik",49.0, "naik"));
-//        Kms.add(new Km(1,30.0,"naik",50.0, "naik"));
-//        Kms.add(new Km(1,30.0,"tetap",55.0, "naik"));
-//        Kms.add(new Km(1,25.0,"turun",55.4, "naik"));
-//
-//        Kms.add(new Km(1,10.0,"naik",39.0, "naik"));
-//        Kms.add(new Km(1,20.0,"naik",49.0, "naik"));
-//        Kms.add(new Km(1,30.0,"naik",50.0, "naik"));
-//        Kms.add(new Km(1,30.0,"tetap",55.0, "naik"));
-//        Kms.add(new Km(1,25.0,"turun",55.4, "naik"));
-
-        List<Entry> entries = new ArrayList<>();
-        for (int i = 0; i < Kms.size(); i++) {
-            entries.add(new Entry(i, Kms.get(i).getTb().floatValue()));
-        }
-        LineDataSet dataSet = new LineDataSet(entries, "Tinggi Badan Anak");
-        dataSet.setColor(Color.RED);
-        dataSet.setDrawCircles(true);
-        dataSet.setDrawValues(true);
-        List<Entry> bbEntries = new ArrayList<>();
-        for (int i = 0; i < Kms.size(); i++) {
-            bbEntries.add(new Entry(4+i,Kms.get(i).getBb().floatValue()-6f));
-        }
-        LineDataSet bbDataSet = new LineDataSet(bbEntries, "Berat Badan Anak");
-        bbDataSet.setColor(Color.BLACK);
-        bbDataSet.setDrawCircles(true);
-        bbDataSet.setDrawValues(true);
-        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
-//        bbDataSet.setColor(Color.BLACK);
-
-        List<Entry> entry = new ArrayList<>();
-        entry.add(new Entry(0f,2f));
-        entry.add(new Entry(1f,2.5f));
-        entry.add(new Entry(2f,3.5f));
-        entry.add(new Entry(3f,4.5f));
-        entry.add(new Entry(4f,5f));
-        entry.add(new Entry(5f,5.5f));
-        entry.add(new Entry(6f,6f));
-        entry.add(new Entry(7f,6.5f));
-        entry.add(new Entry(8f,6.8f));
-        entry.add(new Entry(9f,7.2f));
-        entry.add(new Entry(10f,7.5f));
-        entry.add(new Entry(11f,7.7f));
-        entry.add(new Entry(12f,7.9f));
-        entry.add(new Entry(13f,8f));
-        entry.add(new Entry(14f,8.2f));
-        entry.add(new Entry(15f,8.5f));
-        entry.add(new Entry(16f,8.7f));
-        entry.add(new Entry(17f,8.8f));
-        entry.add(new Entry(18f,8.9f));
-        entry.add(new Entry(19f,9f));
-        entry.add(new Entry(20f,9.2f));
-        entry.add(new Entry(21f,9.3f));
-        entry.add(new Entry(22f,9.5f));
-        entry.add(new Entry(23f,9.6f));
-        entry.add(new Entry(24f,9.8f));
-        entry.add(new Entry(25f,10f));
-//        entry.add(new Entry(24f,9.8f));
-
-        LineDataSet as = new LineDataSet(entry, "");
-        as.setDrawCircles(false);
-        as.setDrawValues(false);
-//        as.setColor(Color.DKGRAY);
-
-        List<Entry> entry1 = new ArrayList<>();
-        entry1.add(new Entry(0f,2.5f));
-        entry1.add(new Entry(1f,3.5f));
-        entry1.add(new Entry(2f,4.5f));
-        entry1.add(new Entry(3f,5.5f));
-        entry1.add(new Entry(4f,6f));
-        entry1.add(new Entry(5f,6.5f));
-        entry1.add(new Entry(6f,7f));
-        entry1.add(new Entry(7f,7.5f));
-        entry1.add(new Entry(8f,7.8f));
-        entry1.add(new Entry(9f,8.2f));
-        entry1.add(new Entry(10f,8.5f));
-        entry1.add(new Entry(11f,8.7f));
-        entry1.add(new Entry(12f,8.9f));
-        entry1.add(new Entry(13f,9f));
-        entry1.add(new Entry(14f,9.2f));
-        entry1.add(new Entry(15f,9.5f));
-        entry1.add(new Entry(16f,9.7f));
-        entry1.add(new Entry(17f,9.8f));
-        entry1.add(new Entry(18f,9.9f));
-        entry1.add(new Entry(19f,10f));
-        entry1.add(new Entry(20f,10.2f));
-        entry1.add(new Entry(21f,10.3f));
-        entry1.add(new Entry(22f,10.5f));
-        entry1.add(new Entry(23f,10.6f));
-        entry1.add(new Entry(24f,10.8f));
-        entry1.add(new Entry(25f,10.8f));
-
-        LineDataSet asd = new LineDataSet(entry1, "");
-        asd.setDrawCircles(false);
-        asd.setDrawValues(false);
-        asd.setColor(Color.BLUE);
-
-        List<Entry> entry2 = new ArrayList<>();
-        entry2.add(new Entry(0f,3f));
-        entry2.add(new Entry(1f,4.5f));
-        entry2.add(new Entry(2f,5.5f));
-        entry2.add(new Entry(3f,6.5f));
-        entry2.add(new Entry(4f,7f));
-        entry2.add(new Entry(5f,7.5f));
-        entry2.add(new Entry(6f,8f));
-        entry2.add(new Entry(7f,8.5f));
-        entry2.add(new Entry(8f,8.8f));
-        entry2.add(new Entry(9f,9.2f));
-        entry2.add(new Entry(10f,9.5f));
-        entry2.add(new Entry(11f,9.7f));
-        entry2.add(new Entry(12f,9.9f));
-        entry2.add(new Entry(13f,10f));
-        entry2.add(new Entry(14f,10.2f));
-        entry2.add(new Entry(15f,10.5f));
-        entry2.add(new Entry(16f,10.7f));
-        entry2.add(new Entry(17f,10.8f));
-        entry2.add(new Entry(18f,10.9f));
-        entry2.add(new Entry(19f,11f));
-        entry2.add(new Entry(20f,11.2f));
-        entry2.add(new Entry(21f,11.3f));
-        entry2.add(new Entry(22f,11.5f));
-        entry2.add(new Entry(23f,11.6f));
-        entry2.add(new Entry(24f,11.8f));
-        entry2.add(new Entry(25f,11.8f));
-
-        LineDataSet asd2 = new LineDataSet(entry2, "");
-        asd2.setDrawCircles(false);
-        asd2.setDrawValues(false);
-        asd2.setColor(Color.RED);
-
-
-        List<Entry> entry3 = new ArrayList<>();
-        entry3.add(new Entry(0f,4f));
-        entry3.add(new Entry(1f,5.5f));
-        entry3.add(new Entry(2f,6.5f));
-        entry3.add(new Entry(3f,7.5f));
-        entry3.add(new Entry(4f,8f));
-        entry3.add(new Entry(5f,8.5f));
-        entry3.add(new Entry(6f,9f));
-        entry3.add(new Entry(7f,9.5f));
-        entry3.add(new Entry(8f,9.8f));
-        entry3.add(new Entry(9f,10.2f));
-        entry3.add(new Entry(10f,10.5f));
-        entry3.add(new Entry(11f,10.7f));
-        entry3.add(new Entry(12f,10.9f));
-        entry3.add(new Entry(13f,11f));
-        entry3.add(new Entry(14f,11.2f));
-        entry3.add(new Entry(15f,11.5f));
-        entry3.add(new Entry(16f,11.7f));
-        entry3.add(new Entry(17f,11.8f));
-        entry3.add(new Entry(18f,11.9f));
-        entry3.add(new Entry(19f,12f));
-        entry3.add(new Entry(20f,12.2f));
-        entry3.add(new Entry(21f,12.3f));
-        entry3.add(new Entry(22f,12.5f));
-        entry3.add(new Entry(23f,12.6f));
-        entry3.add(new Entry(24f,12.8f));
-        entry3.add(new Entry(25f,12.8f));
-
-        LineDataSet asd3 = new LineDataSet(entry3, "");
-        asd3.setDrawCircles(false);
-        asd3.setDrawValues(false);
-        asd3.setColor(Color.MAGENTA);
-
-        dataSets.add(asd3);
-        dataSets.add(asd);
-        dataSets.add(asd2);
-        dataSets.add(as);
-//        dataSets.add(dataSet);
-        dataSets.add(bbDataSet);
-
-
-        LineData lineData = new LineData(dataSets);
-
-        chart.setNoDataText("Belum ada data anak");
-        chart.setData(lineData);
-        chart.setVisibleXRangeMaximum(30);
-        chart.moveViewToX(20);
-        chart.invalidate();
-//        for (YourData data : dataObjects)
-//            // turn your data into Entry objects
-//            entries.add(new Entry(data.getValueX(), data.getValueY()));
-//        }
     }
 
     private void decideGraph(){
@@ -978,6 +788,68 @@ public class GrafikActivity extends AppCompatActivity {
         chart.moveViewToX(20);
         chart.invalidate();
     }
+
+    private void checkGejalaStunting() {
+        Intent intent = getIntent();
+
+        List<Km> Kms = intent.getParcelableArrayListExtra("KMS_KEY");
+
+        if (Kms.size() % 2 == 0) { //Perbulan
+        if (sessionManager.getUsiaBulanAnak() <= 6) {
+            List<Km> newKms = new ArrayList<>();
+            newKms.add(Kms.get(Kms.size() -1));
+            newKms.add(Kms.get(Kms.size() -2));
+
+            double rataRataKenaikanBB = sumBB(newKms) + Kms.get(Kms.size() - 1).getBulan() * 4;
+
+
+                if (rataRataKenaikanBB < 140) {
+                    Log.d(TAG, "checkGejalaStunting: Gejala Stunting terlihat");
+                    stunting.setVisibility(View.VISIBLE);
+                }
+
+        } else if (sessionManager.getUsiaBulanAnak() >= 9 && sessionManager.getUsiaBulanAnak() <= 12) {
+            double rataRataKenaikanBB = sumBB(Kms) + Kms.get(Kms.size() - 1).getBulan() * 4;
+
+            if (Kms.get(Kms.size() - 1).getBulan() == 9 || Kms.get(Kms.size() - 1).getBulan() == 12) {
+                if (rataRataKenaikanBB < 85) {
+                    Log.d(TAG, "checkGejalaStunting: Gejala Stunting terlihat");
+                    stunting.setVisibility(View.VISIBLE);
+                }
+            }
+        } else if (sessionManager.getUsiaBulanAnak() > 12) {
+            Log.d(TAG, "checkGejalaStunting: 12 bulan lebih");
+            stunting.setVisibility(View.VISIBLE);
+//            checkGejalaStuntingDiatas12Bulan();
+        }
+        }
+    }
+
+    private void checkGejalaStuntingDiatas12Bulan(List<Double> listTinggiBadan){
+        Intent intent = getIntent();
+
+        List<Km> Kms = intent.getParcelableArrayListExtra("KMS_KEY");
+        
+        float persentileLima = 5 * (listTinggiBadan.size() + 1) / 100;
+
+        int dataKe = Math.round(persentileLima);
+
+        double akhirPersentileLima = listTinggiBadan.get(dataKe) + ((persentileLima - dataKe) * (listTinggiBadan.get(dataKe + 1) - listTinggiBadan.get(dataKe)));
+//        P40 = data ke- 4 + 0,4 (data ke- 5 – data ke- 4)
+        
+        if (Kms.get(Kms.size()-1).getTb() < akhirPersentileLima) {
+            Log.d(TAG, "checkGejalaStunting: Gejala Stunting terlihat");
+            stunting.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private double sumBB(List<Km> Kms) {
+        double sum = 0;
+        for (int i = 0; i < Kms.size(); i++)
+            sum += Kms.get(i).getBb();
+        return sum;
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

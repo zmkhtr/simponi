@@ -73,4 +73,10 @@ public class MainPresenter implements MainContract.Presenter, MainContract.GetMa
         mainView.showProgressBar();
         mainInteractor.getNFCIDProceed(this, intent, context);
     }
+
+    @Override
+    public void getMainProceed(String id_nfc, Context context) {
+        mainView.showProgressBar();
+        mainInteractor.getMainProceed(this, id_nfc, context);
+    }
 }

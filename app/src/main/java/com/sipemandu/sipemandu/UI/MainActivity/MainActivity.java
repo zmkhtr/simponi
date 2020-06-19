@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -41,7 +42,12 @@ import org.joda.time.Period;
 import org.joda.time.PeriodType;
 
 import es.dmoral.toasty.Toasty;
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity implements MainContract.View {
     private static final String TAG = "MainActivity";
@@ -62,6 +68,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     private ProgressBar mProgress;
     private MainContract.Presenter presenter;
 
+    private ImageView dummyScan;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +81,9 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         viewPager = findViewById(R.id.container);
         mEmail = findViewById(R.id.textMainEmail);
         mProgress = findViewById(R.id.progresBarMain);
+
+        dummyScan = findViewById(R.id.imageProfile);
+
         setupViewPager(viewPager);
 
         presenter = new MainPresenter(this, new GetMainInteractor());
@@ -103,7 +114,15 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         if (isStoragePermissionGranted()){
             Log.d(TAG, "onCreate: permission granted");
         }
+
+        dummyScan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.getMainProceed("09981239013", getApplicationContext());
+            }
+        });
     }
+
 
     private void setupViewPager(ViewPager viewPager) {
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());

@@ -32,5 +32,6 @@ public interface MainContract {
 
     interface Presenter{
         void onNFCScanned(Intent intent, Context context);
+        void getMainProceed(String id_nfc, Context context);
     }
 }
