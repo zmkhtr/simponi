@@ -26,7 +26,7 @@
             android:name=".QRScannerActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".UI.GrafikActivity"
+            android:name=".UI.Grafik.GrafikActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".UI.BlankContainer.BlankActivity"

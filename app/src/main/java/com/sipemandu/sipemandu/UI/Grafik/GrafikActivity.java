@@ -1,10 +1,9 @@
-package com.sipemandu.sipemandu.UI;
+package com.sipemandu.sipemandu.UI.Grafik;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -18,13 +17,16 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-import com.sipemandu.sipemandu.Model.DataKMS;
+import com.google.gson.Gson;
 import com.sipemandu.sipemandu.R;
 import com.sipemandu.sipemandu.UI.DetailAnakFragment.HistoryAnakObj.Km;
-import com.sipemandu.sipemandu.UI.MainActivity.MainActivity;
+import com.sipemandu.sipemandu.UI.Grafik.GrafikModel.GrafikModel;
 import com.sipemandu.sipemandu.Utils.SessionManager;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.sipemandu.sipemandu.UI.DetailAnakFragment.DetailAnakFragment.resume;
@@ -62,7 +64,7 @@ public class GrafikActivity extends AppCompatActivity {
 
         if (jenisKelamin.toLowerCase().equals("laki-laki".toLowerCase())){
             if (jenisChart.equals("bb".toLowerCase())){
-                if (sessionManager.getUsiaBulanAnak() <= 24){
+               if (sessionManager.getUsiaBulanAnak() <= 24){
                     boyWeight();
                 } else {
                     boyWeightFiveYO();
@@ -101,6 +103,7 @@ public class GrafikActivity extends AppCompatActivity {
         Intent intent = getIntent();
         nama.setText(intent.getStringExtra("NAMA_KEY"));
 
+        List<GrafikModel> grafikModels = Arrays.asList(readBoysWeightData());
         List<Km> Kms = intent.getParcelableArrayListExtra("KMS_KEY");
 
         List<Entry> bbEntries = new ArrayList<>();
@@ -115,8 +118,9 @@ public class GrafikActivity extends AppCompatActivity {
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();
 
         List<Entry> garisBawah = new ArrayList<>();
-        garisBawah.add(new Entry(0f,2.5f));
-        garisBawah.add(new Entry(24f,9.8f));
+        for (int i = 0; i < grafikModels.size(); i++){
+            garisBawah.add(new Entry(i, grafikModels.get(i).get2nd23rd()));
+        }
 
         LineDataSet dataSetgarisBawah = new LineDataSet(garisBawah, "");
         dataSetgarisBawah.setDrawCircles(false);
@@ -124,8 +128,9 @@ public class GrafikActivity extends AppCompatActivity {
         dataSetgarisBawah.setColor(Color.RED);
 
         List<Entry> garisBawahKedua = new ArrayList<>();
-        garisBawahKedua.add(new Entry(0f,2.8f));
-        garisBawahKedua.add(new Entry(24f,10.8f));
+        for (int i = 0; i < grafikModels.size(); i++){
+            garisBawahKedua.add(new Entry(i, grafikModels.get(i).get10th()));
+        }
 
         LineDataSet dataSetGarisBawahKedua = new LineDataSet(garisBawahKedua, "");
         dataSetGarisBawahKedua.setDrawCircles(false);
@@ -133,8 +138,9 @@ public class GrafikActivity extends AppCompatActivity {
         dataSetGarisBawahKedua.setColor(Color.YELLOW);
 
         List<Entry> garisTengah = new ArrayList<>();
-        garisTengah.add(new Entry(0f,3.3f));
-        garisTengah.add(new Entry(24f,12.2f));
+        for (int i = 0; i < grafikModels.size(); i++){
+            garisTengah.add(new Entry(i, grafikModels.get(i).get50th()));
+        }
 
         LineDataSet dataSetGarisTengah = new LineDataSet(garisTengah, "");
         dataSetGarisTengah.setDrawCircles(false);
@@ -143,12 +149,16 @@ public class GrafikActivity extends AppCompatActivity {
 
 
         List<Entry> garisAtasKedua = new ArrayList<>();
-        garisAtasKedua.add(new Entry(0f,4f));
-        garisAtasKedua.add(new Entry(24f,13.7f));
+        for (int i = 0; i < grafikModels.size(); i++){
+            garisAtasKedua.add(new Entry(i, grafikModels.get(i).get90th()));
+        }
+
 
         List<Entry> garisAtasPertama = new ArrayList<>();
-        garisAtasPertama.add(new Entry(0f,4.3f));
-        garisAtasPertama.add(new Entry(24f,15.1f));
+        for (int i = 0; i < grafikModels.size(); i++){
+            garisAtasPertama.add(new Entry(i, grafikModels.get(i).get98th977th()));
+        }
+
 
         LineDataSet dataSetGarisAtasKedua = new LineDataSet(garisAtasKedua, "");
         dataSetGarisAtasKedua.setDrawCircles(false);
@@ -160,11 +170,14 @@ public class GrafikActivity extends AppCompatActivity {
         dataSetGarisAtasPertama.setDrawValues(false);
         dataSetGarisAtasPertama.setColor(Color.RED);
 
-        dataSetGarisAtasPertama.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
-        dataSetGarisAtasKedua.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
-        dataSetGarisTengah.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
-        dataSetgarisBawah.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
-        dataSetGarisBawahKedua.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
+//        dataSetGarisAtasPertama.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
+//        dataSetGarisAtasKedua.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
+//        dataSetGarisTengah.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
+//        dataSetgarisBawah.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
+//        dataSetGarisBawahKedua.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
+
+//        dataSetGarisAtasPertama.setCubicIntensity(0.1f);
+//        dataSetGarisAtasPertama.setDrawCircles(true);
 
         dataSets.add(dataSetGarisAtasPertama);
         dataSets.add(dataSetGarisAtasKedua);
@@ -174,8 +187,8 @@ public class GrafikActivity extends AppCompatActivity {
 //        dataSets.add(dataSet);
         dataSets.add(bbDataSet);
 
-
         LineData lineData = new LineData(dataSets);
+
 
         chart.setNoDataText("Belum ada data anak");
         chart.setData(lineData);
@@ -187,6 +200,7 @@ public class GrafikActivity extends AppCompatActivity {
     private void boyLength(){
         Intent intent = getIntent();
         nama.setText(intent.getStringExtra("NAMA_KEY"));
+        List<GrafikModel> grafikModels = Arrays.asList(readBoysLenghtData());
 
         List<Km> Kms = intent.getParcelableArrayListExtra("KMS_KEY");
 
@@ -202,26 +216,32 @@ public class GrafikActivity extends AppCompatActivity {
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();
 
         List<Entry> garisBawah = new ArrayList<>();
-        garisBawah.add(new Entry(0f,44f));
-        garisBawah.add(new Entry(24f,79f));
+        for (int i = 0; i < grafikModels.size(); i++){
+            garisBawah.add(new Entry(i, grafikModels.get(i).get2nd23rd()));
+        }
 
         LineDataSet dataSetgarisBawah = new LineDataSet(garisBawah, "");
         dataSetgarisBawah.setDrawCircles(false);
         dataSetgarisBawah.setDrawValues(false);
-        dataSetgarisBawah.setColor(Color.BLACK);
+        dataSetgarisBawah.setColor(Color.RED);
 
         List<Entry> garisBawahKedua = new ArrayList<>();
-        garisBawahKedua.add(new Entry(0f,46f));
-        garisBawahKedua.add(new Entry(24f,82f));
+        for (int i = 0; i < grafikModels.size(); i++){
+            garisBawahKedua.add(new Entry(i, grafikModels.get(i).get10th()));
+        }
+
+//        garisBawahKedua.add(new Entry(0f,48f));
+//        garisBawahKedua.add(new Entry(24f,82f));
 
         LineDataSet dataSetGarisBawahKedua = new LineDataSet(garisBawahKedua, "");
         dataSetGarisBawahKedua.setDrawCircles(false);
         dataSetGarisBawahKedua.setDrawValues(false);
-        dataSetGarisBawahKedua.setColor(Color.RED);
+        dataSetGarisBawahKedua.setColor(Color.rgb(245,194,46));
 
         List<Entry> garisTengah = new ArrayList<>();
-        garisTengah.add(new Entry(0f,50f));
-        garisTengah.add(new Entry(24f,88f));
+        for (int i = 0; i < grafikModels.size(); i++){
+            garisTengah.add(new Entry(i, grafikModels.get(i).get50th()));
+        }
 
         LineDataSet dataSetGarisTengah = new LineDataSet(garisTengah, "");
         dataSetGarisTengah.setDrawCircles(false);
@@ -230,28 +250,30 @@ public class GrafikActivity extends AppCompatActivity {
 
 
         List<Entry> garisAtasKedua = new ArrayList<>();
-        garisAtasKedua.add(new Entry(0f,54f));
-        garisAtasKedua.add(new Entry(24f,94f));
+        for (int i = 0; i < grafikModels.size(); i++){
+            garisAtasKedua.add(new Entry(i, grafikModels.get(i).get90th()));
+        }
 
         LineDataSet dataSetGarisAtasKedua = new LineDataSet(garisAtasKedua, "");
         dataSetGarisAtasKedua.setDrawCircles(false);
         dataSetGarisAtasKedua.setDrawValues(false);
-        dataSetGarisAtasKedua.setColor(Color.RED);
+        dataSetGarisAtasKedua.setColor(Color.rgb(245,194,46));
 
         List<Entry> garisAtasPertama = new ArrayList<>();
-        garisAtasPertama.add(new Entry(0f,56f));
-        garisAtasPertama.add(new Entry(24f,97f));
+        for (int i = 0; i < grafikModels.size(); i++){
+            garisAtasPertama.add(new Entry(i, grafikModels.get(i).get98th977th()));
+        }
 
         LineDataSet dataSetGarisAtasPertama = new LineDataSet(garisAtasPertama, "");
         dataSetGarisAtasPertama.setDrawCircles(false);
         dataSetGarisAtasPertama.setDrawValues(false);
-        dataSetGarisAtasPertama.setColor(Color.BLACK);
+        dataSetGarisAtasPertama.setColor(Color.RED);
 
-        dataSetGarisAtasPertama.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
-        dataSetGarisAtasKedua.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
-        dataSetGarisTengah.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
-        dataSetgarisBawah.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
-        dataSetGarisBawahKedua.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
+//        dataSetGarisAtasPertama.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
+//        dataSetGarisAtasKedua.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
+//        dataSetGarisTengah.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
+//        dataSetgarisBawah.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
+//        dataSetGarisBawahKedua.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
 
         dataSets.add(dataSetGarisAtasPertama);
         dataSets.add(dataSetGarisAtasKedua);
@@ -276,6 +298,7 @@ public class GrafikActivity extends AppCompatActivity {
         nama.setText(intent.getStringExtra("NAMA_KEY"));
 
         List<Km> Kms = intent.getParcelableArrayListExtra("KMS_KEY");
+        List<GrafikModel> grafikModels = Arrays.asList(readGirlWeightData());
 
         List<Entry> bbEntries = new ArrayList<>();
         for (int i = 0; i < Kms.size(); i++) {
@@ -289,8 +312,9 @@ public class GrafikActivity extends AppCompatActivity {
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();
 
         List<Entry> garisBawah = new ArrayList<>();
-        garisBawah.add(new Entry(0f,2.4f));
-        garisBawah.add(new Entry(24f,9.2f));
+        for (int i = 0; i < grafikModels.size(); i++){
+            garisBawah.add(new Entry(i, grafikModels.get(i).get2nd23rd()));
+        }
 
         LineDataSet dataSetgarisBawah = new LineDataSet(garisBawah, "");
         dataSetgarisBawah.setDrawCircles(false);
@@ -298,8 +322,9 @@ public class GrafikActivity extends AppCompatActivity {
         dataSetgarisBawah.setColor(Color.RED);
 
         List<Entry> garisBawahKedua = new ArrayList<>();
-        garisBawahKedua.add(new Entry(0f,2.6f));
-        garisBawahKedua.add(new Entry(24f,10.1f));
+        for (int i = 0; i < grafikModels.size(); i++){
+            garisBawahKedua.add(new Entry(i, grafikModels.get(i).get10th()));
+        }
 
         LineDataSet dataSetGarisBawahKedua = new LineDataSet(garisBawahKedua, "");
         dataSetGarisBawahKedua.setDrawCircles(false);
@@ -307,8 +332,9 @@ public class GrafikActivity extends AppCompatActivity {
         dataSetGarisBawahKedua.setColor(Color.YELLOW);
 
         List<Entry> garisTengah = new ArrayList<>();
-        garisTengah.add(new Entry(0f,3.2f));
-        garisTengah.add(new Entry(24f,11.5f));
+        for (int i = 0; i < grafikModels.size(); i++){
+            garisTengah.add(new Entry(i, grafikModels.get(i).get50th()));
+        }
 
         LineDataSet dataSetGarisTengah = new LineDataSet(garisTengah, "");
         dataSetGarisTengah.setDrawCircles(false);
@@ -317,12 +343,14 @@ public class GrafikActivity extends AppCompatActivity {
 
 
         List<Entry> garisAtasKedua = new ArrayList<>();
-        garisAtasKedua.add(new Entry(0f,3.7f));
-        garisAtasKedua.add(new Entry(24f,13.1f));
+        for (int i = 0; i < grafikModels.size(); i++){
+            garisAtasKedua.add(new Entry(i, grafikModels.get(i).get90th()));
+        }
 
         List<Entry> garisAtasPertama = new ArrayList<>();
-        garisAtasPertama.add(new Entry(0f,4.2f));
-        garisAtasPertama.add(new Entry(24f,14.6f));
+        for (int i = 0; i < grafikModels.size(); i++){
+            garisAtasPertama.add(new Entry(i, grafikModels.get(i).get98th977th()));
+        }
 
         LineDataSet dataSetGarisAtasKedua = new LineDataSet(garisAtasKedua, "");
         dataSetGarisAtasKedua.setDrawCircles(false);
@@ -334,11 +362,11 @@ public class GrafikActivity extends AppCompatActivity {
         dataSetGarisAtasPertama.setDrawValues(false);
         dataSetGarisAtasPertama.setColor(Color.RED);
 
-        dataSetGarisAtasPertama.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
-        dataSetGarisAtasKedua.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
-        dataSetGarisTengah.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
-        dataSetgarisBawah.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
-        dataSetGarisBawahKedua.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
+//        dataSetGarisAtasPertama.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
+//        dataSetGarisAtasKedua.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
+//        dataSetGarisTengah.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
+//        dataSetgarisBawah.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
+//        dataSetGarisBawahKedua.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
 
         dataSets.add(dataSetGarisAtasPertama);
         dataSets.add(dataSetGarisAtasKedua);
@@ -360,6 +388,7 @@ public class GrafikActivity extends AppCompatActivity {
     private void girlLength(){
         Intent intent = getIntent();
         nama.setText(intent.getStringExtra("NAMA_KEY"));
+        List<GrafikModel> grafikModels = Arrays.asList(readGirlLenghtData());
 
         List<Km> Kms = intent.getParcelableArrayListExtra("KMS_KEY");
 
@@ -375,26 +404,32 @@ public class GrafikActivity extends AppCompatActivity {
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();
 
         List<Entry> garisBawah = new ArrayList<>();
-        garisBawah.add(new Entry(0f,43.5f));
-        garisBawah.add(new Entry(24f,76.5f));
+        for (int i = 0; i < grafikModels.size(); i++){
+            garisBawah.add(new Entry(i, grafikModels.get(i).get2nd23rd()));
+        }
 
         LineDataSet dataSetgarisBawah = new LineDataSet(garisBawah, "");
         dataSetgarisBawah.setDrawCircles(false);
         dataSetgarisBawah.setDrawValues(false);
-        dataSetgarisBawah.setColor(Color.BLACK);
+        dataSetgarisBawah.setColor(Color.RED);
 
         List<Entry> garisBawahKedua = new ArrayList<>();
-        garisBawahKedua.add(new Entry(0f,45.5f));
-        garisBawahKedua.add(new Entry(24f,80f));
+        for (int i = 0; i < grafikModels.size(); i++){
+            garisBawahKedua.add(new Entry(i, grafikModels.get(i).get10th()));
+        }
+
+//        garisBawahKedua.add(new Entry(0f,48f));
+//        garisBawahKedua.add(new Entry(24f,82f));
 
         LineDataSet dataSetGarisBawahKedua = new LineDataSet(garisBawahKedua, "");
         dataSetGarisBawahKedua.setDrawCircles(false);
         dataSetGarisBawahKedua.setDrawValues(false);
-        dataSetGarisBawahKedua.setColor(Color.RED);
+        dataSetGarisBawahKedua.setColor(Color.rgb(245,194,46));
 
         List<Entry> garisTengah = new ArrayList<>();
-        garisTengah.add(new Entry(0f,49f));
-        garisTengah.add(new Entry(24f,86.5f));
+        for (int i = 0; i < grafikModels.size(); i++){
+            garisTengah.add(new Entry(i, grafikModels.get(i).get50th()));
+        }
 
         LineDataSet dataSetGarisTengah = new LineDataSet(garisTengah, "");
         dataSetGarisTengah.setDrawCircles(false);
@@ -403,34 +438,37 @@ public class GrafikActivity extends AppCompatActivity {
 
 
         List<Entry> garisAtasKedua = new ArrayList<>();
-        garisAtasKedua.add(new Entry(0f,53f));
-        garisAtasKedua.add(new Entry(24f,93f));
+        for (int i = 0; i < grafikModels.size(); i++){
+            garisAtasKedua.add(new Entry(i, grafikModels.get(i).get90th()));
+        }
 
         LineDataSet dataSetGarisAtasKedua = new LineDataSet(garisAtasKedua, "");
         dataSetGarisAtasKedua.setDrawCircles(false);
         dataSetGarisAtasKedua.setDrawValues(false);
-        dataSetGarisAtasKedua.setColor(Color.RED);
+        dataSetGarisAtasKedua.setColor(Color.rgb(245,194,46));
 
         List<Entry> garisAtasPertama = new ArrayList<>();
-        garisAtasPertama.add(new Entry(0f,55f));
-        garisAtasPertama.add(new Entry(24f,96f));
+        for (int i = 0; i < grafikModels.size(); i++){
+            garisAtasPertama.add(new Entry(i, grafikModels.get(i).get98th977th()));
+        }
 
         LineDataSet dataSetGarisAtasPertama = new LineDataSet(garisAtasPertama, "");
         dataSetGarisAtasPertama.setDrawCircles(false);
         dataSetGarisAtasPertama.setDrawValues(false);
-        dataSetGarisAtasPertama.setColor(Color.BLACK);
+        dataSetGarisAtasPertama.setColor(Color.RED);
 
-        dataSetGarisAtasPertama.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
-        dataSetGarisAtasKedua.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
-        dataSetGarisTengah.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
-        dataSetgarisBawah.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
-        dataSetGarisBawahKedua.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
+//        dataSetGarisAtasPertama.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
+//        dataSetGarisAtasKedua.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
+//        dataSetGarisTengah.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
+//        dataSetgarisBawah.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
+//        dataSetGarisBawahKedua.setMode(LineDataSet.Mode.HORIZONTAL_BEZIER);
 
         dataSets.add(dataSetGarisAtasPertama);
         dataSets.add(dataSetGarisAtasKedua);
         dataSets.add(dataSetGarisTengah);
         dataSets.add(dataSetGarisBawahKedua);
         dataSets.add(dataSetgarisBawah);
+//        dataSets.add(dataSet);
         dataSets.add(tbDataSet);
 
 
@@ -442,7 +480,6 @@ public class GrafikActivity extends AppCompatActivity {
         chart.moveViewToX(20);
         chart.invalidate();
     }
-
 
     private void boyWeightFiveYO(){
         Intent intent = getIntent();
@@ -841,6 +878,82 @@ public class GrafikActivity extends AppCompatActivity {
             Log.d(TAG, "checkGejalaStunting: Gejala Stunting terlihat");
             stunting.setVisibility(View.VISIBLE);
         }
+    }
+
+    private GrafikModel[] readBoysLenghtData(){
+        String json = null;
+        try {
+            InputStream is = getApplicationContext().getAssets().open("b_age_length.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        String carInfoJson = json;
+        Gson gson = new Gson();
+        GrafikModel[] grafikModels = gson.fromJson(carInfoJson, GrafikModel[].class);
+        return grafikModels;
+    }
+
+    private GrafikModel[] readBoysWeightData(){
+        String json = null;
+        try {
+            InputStream is = getApplicationContext().getAssets().open("b_age_weight.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        String carInfoJson = json;
+        Gson gson = new Gson();
+        GrafikModel[] grafikModels = gson.fromJson(carInfoJson, GrafikModel[].class);
+        return grafikModels;
+    }
+
+    private GrafikModel[] readGirlLenghtData(){
+        String json = null;
+        try {
+            InputStream is = getApplicationContext().getAssets().open("g_age_length.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        String carInfoJson = json;
+        Gson gson = new Gson();
+        GrafikModel[] grafikModels = gson.fromJson(carInfoJson, GrafikModel[].class);
+        return grafikModels;
+    }
+
+    private GrafikModel[] readGirlWeightData(){
+        String json = null;
+        try {
+            InputStream is = getApplicationContext().getAssets().open("g_age_weight.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        String carInfoJson = json;
+        Gson gson = new Gson();
+        GrafikModel[] grafikModels = gson.fromJson(carInfoJson, GrafikModel[].class);
+        return grafikModels;
     }
 
     private double sumBB(List<Km> Kms) {

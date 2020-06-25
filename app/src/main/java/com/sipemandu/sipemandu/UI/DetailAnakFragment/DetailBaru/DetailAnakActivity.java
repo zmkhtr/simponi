@@ -28,7 +28,7 @@ import com.sipemandu.sipemandu.UI.DetailAnakFragment.HistoryAnakObj.Km;
 import com.sipemandu.sipemandu.UI.DetailAnakFragment.HistoryAnakObj.Makanan;
 import com.sipemandu.sipemandu.UI.DetailAnakFragment.HistoryAnakObj.ResponseAnak;
 import com.sipemandu.sipemandu.UI.DetailAnakFragment.HistoryAnakObj.Vitamin;
-import com.sipemandu.sipemandu.UI.GrafikActivity;
+import com.sipemandu.sipemandu.UI.Grafik.GrafikActivity;
 import com.sipemandu.sipemandu.Utils.ReportUtil;
 import com.sipemandu.sipemandu.Utils.SessionManager;
 import com.sipemandu.sipemandu.Utils.URLs;
@@ -42,8 +42,6 @@ import java.util.concurrent.TimeUnit;
 import es.dmoral.toasty.Toasty;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
-
-import static com.sipemandu.sipemandu.UI.DetailAnakFragment.DetailAnakFragment.resume;
 
 public class DetailAnakActivity extends AppCompatActivity {
     private static final String TAG = "DetailAnakActivity";

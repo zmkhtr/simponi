@@ -34,10 +34,10 @@ public class Anak implements Parcelable {
     private String tglLahir;
     @SerializedName("bb_lahir")
     @Expose
-    private Integer bbLahir;
+    private Double bbLahir;
     @SerializedName("tb_lahir")
     @Expose
-    private Integer tbLahir;
+    private Double tbLahir;
     @SerializedName("asi_external")
     @Expose
     private Integer asiExternal;
@@ -112,19 +112,19 @@ public class Anak implements Parcelable {
         this.tglLahir = tglLahir;
     }
 
-    public Integer getBbLahir() {
+    public Double getBbLahir() {
         return bbLahir;
     }
 
-    public void setBbLahir(Integer bbLahir) {
+    public void setBbLahir(Double bbLahir) {
         this.bbLahir = bbLahir;
     }
 
-    public Integer getTbLahir() {
+    public Double getTbLahir() {
         return tbLahir;
     }
 
-    public void setTbLahir(Integer tbLahir) {
+    public void setTbLahir(Double tbLahir) {
         this.tbLahir = tbLahir;
     }
 
@@ -187,8 +187,8 @@ public class Anak implements Parcelable {
         this.namaAnak = in.readString();
         this.jenisKelamin = in.readString();
         this.tglLahir = in.readString();
-        this.bbLahir = (Integer) in.readValue(Integer.class.getClassLoader());
-        this.tbLahir = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.bbLahir = (Double) in.readValue(Integer.class.getClassLoader());
+        this.tbLahir = (Double) in.readValue(Integer.class.getClassLoader());
         this.asiExternal = (Integer) in.readValue(Integer.class.getClassLoader());
         this.createdAt = in.readString();
         this.updatedAt = in.readString();
