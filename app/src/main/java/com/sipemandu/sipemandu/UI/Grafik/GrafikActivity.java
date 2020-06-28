@@ -105,7 +105,7 @@ public class GrafikActivity extends AppCompatActivity {
 
         List<GrafikModel> grafikModels = Arrays.asList(readBoysWeightData());
         List<Km> Kms = intent.getParcelableArrayListExtra("KMS_KEY");
-
+        checkGejalaStunting(grafikModels);
         List<Entry> bbEntries = new ArrayList<>();
         for (int i = 0; i < Kms.size(); i++) {
             bbEntries.add(new Entry(Kms.get(i).getBulan(),Kms.get(i).getBb().floatValue()));
@@ -204,6 +204,7 @@ public class GrafikActivity extends AppCompatActivity {
 
         List<Km> Kms = intent.getParcelableArrayListExtra("KMS_KEY");
 
+        checkGejalaStunting(grafikModels);
         List<Entry> TBentries = new ArrayList<>();
         for (int i = 0; i < Kms.size(); i++) {
             TBentries.add(new Entry(Kms.get(i).getBulan(), Kms.get(i).getTb().floatValue()));
@@ -300,6 +301,7 @@ public class GrafikActivity extends AppCompatActivity {
         List<Km> Kms = intent.getParcelableArrayListExtra("KMS_KEY");
         List<GrafikModel> grafikModels = Arrays.asList(readGirlWeightData());
 
+        checkGejalaStunting(grafikModels);
         List<Entry> bbEntries = new ArrayList<>();
         for (int i = 0; i < Kms.size(); i++) {
             bbEntries.add(new Entry(Kms.get(i).getBulan(),Kms.get(i).getBb().floatValue()));
@@ -392,6 +394,7 @@ public class GrafikActivity extends AppCompatActivity {
 
         List<Km> Kms = intent.getParcelableArrayListExtra("KMS_KEY");
 
+        checkGejalaStunting(grafikModels);
         List<Entry> TBentries = new ArrayList<>();
         for (int i = 0; i < Kms.size(); i++) {
             TBentries.add(new Entry(Kms.get(i).getBulan(), Kms.get(i).getTb().floatValue()));
@@ -826,58 +829,66 @@ public class GrafikActivity extends AppCompatActivity {
         chart.invalidate();
     }
 
-    private void checkGejalaStunting() {
+    private void checkGejalaStunting(List<GrafikModel> grafikModels) {
         Intent intent = getIntent();
 
         List<Km> Kms = intent.getParcelableArrayListExtra("KMS_KEY");
+        //Perbulan
+        if (sessionManager.getUsiaBulanAnak() <= 6 && sessionManager.getUsiaBulanAnak() >= 2) {
 
-        if (Kms.size() % 2 == 0) { //Perbulan
-        if (sessionManager.getUsiaBulanAnak() <= 6) {
-            List<Km> newKms = new ArrayList<>();
-            newKms.add(Kms.get(Kms.size() -1));
-            newKms.add(Kms.get(Kms.size() -2));
 
-            double rataRataKenaikanBB = sumBB(newKms) + Kms.get(Kms.size() - 1).getBulan() * 4;
+            double bbTerakhir = Kms.get(Kms.size() -1).getBb()*1000;
+            double bbSebelumTerakhir =  Kms.get(Kms.size() - 2).getBb()*1000;
 
+            double rataRataKenaikanBB = (bbTerakhir - bbSebelumTerakhir) / 4;
+
+
+
+            Log.d(TAG, "checkGejalaStunting: Gejala Stunting terlihat INI" + bbTerakhir);
+            Log.d(TAG, "checkGejalaStunting: Gejala Stunting terlihat INI" + bbSebelumTerakhir);
+
+            Log.d(TAG, "checkGejalaStunting: Gejala Stunting terlihat INI" + rataRataKenaikanBB);
 
                 if (rataRataKenaikanBB < 140) {
-                    Log.d(TAG, "checkGejalaStunting: Gejala Stunting terlihat");
+                    Log.d(TAG, "checkGejalaStunting: Gejala Stunting terlihat INI" + rataRataKenaikanBB);
                     stunting.setVisibility(View.VISIBLE);
                 }
 
         } else if (sessionManager.getUsiaBulanAnak() >= 9 && sessionManager.getUsiaBulanAnak() <= 12) {
-            double rataRataKenaikanBB = sumBB(Kms) + Kms.get(Kms.size() - 1).getBulan() * 4;
+
+            double bbTerakhir = Kms.get(Kms.size() -1).getBb()*1000;
+            double bbSebelumTerakhir =  Kms.get(Kms.size() - 2).getBb()*1000;
+
+            double rataRataKenaikanBB = (bbTerakhir - bbSebelumTerakhir) / 4;
 
             if (Kms.get(Kms.size() - 1).getBulan() == 9 || Kms.get(Kms.size() - 1).getBulan() == 12) {
                 if (rataRataKenaikanBB < 85) {
-                    Log.d(TAG, "checkGejalaStunting: Gejala Stunting terlihat");
+                    Log.d(TAG, "checkGejalaStunting: Gejala Stunting terlihat ITU");
                     stunting.setVisibility(View.VISIBLE);
                 }
             }
-        } else if (sessionManager.getUsiaBulanAnak() > 12) {
+        } else if (sessionManager.getUsiaBulanAnak() >= 12 && sessionManager.getUsiaBulanAnak() <= 24) {
             Log.d(TAG, "checkGejalaStunting: 12 bulan lebih");
             stunting.setVisibility(View.VISIBLE);
-//            checkGejalaStuntingDiatas12Bulan();
+            checkGejalaStuntingDiatas12Bulan(grafikModels);
         }
-        }
+
     }
 
-    private void checkGejalaStuntingDiatas12Bulan(List<Double> listTinggiBadan){
+    private void checkGejalaStuntingDiatas12Bulan(List<GrafikModel> grafikModels){
         Intent intent = getIntent();
 
         List<Km> Kms = intent.getParcelableArrayListExtra("KMS_KEY");
-        
-        float persentileLima = 5 * (listTinggiBadan.size() + 1) / 100;
 
-        int dataKe = Math.round(persentileLima);
-
-        double akhirPersentileLima = listTinggiBadan.get(dataKe) + ((persentileLima - dataKe) * (listTinggiBadan.get(dataKe + 1) - listTinggiBadan.get(dataKe)));
-//        P40 = data ke- 4 + 0,4 (data ke- 5 – data ke- 4)
-        
-        if (Kms.get(Kms.size()-1).getTb() < akhirPersentileLima) {
-            Log.d(TAG, "checkGejalaStunting: Gejala Stunting terlihat");
-            stunting.setVisibility(View.VISIBLE);
+        for (int i = 0; i < grafikModels.size(); i++){
+            if (grafikModels.get(i).getMonth() == Kms.get(Kms.size()-1).getBulan()){
+                if (grafikModels.get(i).get5th() > Kms.get(i).getTb()){
+                    Log.d(TAG, "checkGejalaStunting: Gejala Stunting terlihat III");
+                    stunting.setVisibility(View.VISIBLE);
+                }
+            }
         }
+
     }
 
     private GrafikModel[] readBoysLenghtData(){
