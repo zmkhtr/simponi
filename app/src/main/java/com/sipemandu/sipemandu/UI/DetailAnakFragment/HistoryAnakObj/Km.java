@@ -120,6 +120,19 @@ public class Km implements Parcelable {
         this.bulan = bulan;
     }
 
+    public Km(Integer id, Integer anakId, Double bb, String ketBb, Double tb, String ketTb, String usia, String createdAt, String updatedAt, Integer bulan) {
+        this.id = id;
+        this.anakId = anakId;
+        this.bb = bb;
+        this.ketBb = ketBb;
+        this.tb = tb;
+        this.ketTb = ketTb;
+        this.usia = usia;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.bulan = bulan;
+    }
+
     @Override
     public int describeContents() {
         return 0;

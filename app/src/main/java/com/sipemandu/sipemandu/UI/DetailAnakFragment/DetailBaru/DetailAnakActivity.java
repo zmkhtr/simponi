@@ -57,6 +57,7 @@ public class DetailAnakActivity extends AppCompatActivity {
     private Button btnChart, btnChartTinggi;
     private ListKMSDetailAdapter adapterKMS = new ListKMSDetailAdapter();
     private ListMakananAdapter adapterMakanan = new ListMakananAdapter();
+    private List<Km> mKmsData;
 
     private TextView namaOrangTua, namaAnak, jenisKelamin, tanggalLahir, beratBadan, tinggiBadan, asiEksklusif, nikAnak;
 
@@ -191,6 +192,7 @@ public class DetailAnakActivity extends AppCompatActivity {
         beratBadan.setText(anak.getBbLahir().toString());
         tinggiBadan.setText(anak.getTbLahir().toString());
         tanggalLahir.setText(anak.getTglLahir());
+
         Period period = ReportUtil.calculateAge(anak.getTglLahir());
 
         String usiaHariIni = anak.getTglLahir()

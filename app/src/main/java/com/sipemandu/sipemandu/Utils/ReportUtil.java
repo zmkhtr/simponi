@@ -36,6 +36,14 @@ public class ReportUtil {
         return new Period(birthdate, now, PeriodType.yearMonthDay());
     }
 
+    public static Period calculateAgeMonth(String date) {
+        LocalDate birthdate = new LocalDate(Date.valueOf(date));      //Birth date
+        Log.d(TAG, "calculateAge: gga " + birthdate);
+        LocalDate now = new LocalDate();                        //Today's date
+        Log.d(TAG, "calculateAge: " + birthdate);
+        return new Period(birthdate, now, PeriodType.months());
+    }
+
     public static Period calculateAgePenimbangan(String date, String tglPenimbangan) {
         LocalDate birthdate = new LocalDate(Date.valueOf(date));      //Birth date
         LocalDate penimbangan = new LocalDate(Date.valueOf(tglPenimbangan));                        //Today's date

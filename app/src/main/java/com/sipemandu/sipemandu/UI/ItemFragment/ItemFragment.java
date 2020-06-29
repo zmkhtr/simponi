@@ -488,11 +488,14 @@ public class ItemFragment extends Fragment implements ItemContract.View {
 
                 Period period = ReportUtil.calculateAge(mDataAnakOrtu.getTanggalLahir());
 
+                Period periodMonth = ReportUtil.calculateAgeMonth(mDataAnakOrtu.getTanggalLahir());
+
                 String usiaHariIni = period.getYears()
                                 + " Tahun " + period.getMonths()
                                 + " Bulan " + period.getDays() + " Hari";
                 Log.d(TAG, "onViewClick: KOKO " + period.getMonths());
-                sessionManager.setUsiaBulanAnak(period.getMonths());
+                sessionManager.setUsiaBulanAnak(periodMonth.getMonths());
+                Log.d(TAG, "onViewClick: " + periodMonth.getMonths());
                 sessionManager.setDataAnak(mDataAnakOrtu.getId(), mDataAnakOrtu.getNamaAnak(), mDataAnakOrtu.getNamaOrtu());
                 sessionManager.setUsiaAnak(usiaHariIni);
                 if (key.equals("nama_anak_laporan")) {
