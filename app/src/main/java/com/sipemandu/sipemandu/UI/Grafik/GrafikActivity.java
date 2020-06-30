@@ -105,7 +105,7 @@ public class GrafikActivity extends AppCompatActivity {
 
         List<GrafikModel> grafikModels = Arrays.asList(readBoysWeightData());
         List<Km> Kms = intent.getParcelableArrayListExtra("KMS_KEY");
-        checkGejalaStunting(grafikModels);
+        checkGejalaStunting(Arrays.asList(readBoysLenghtData()),grafikModels);
         List<Entry> bbEntries = new ArrayList<>();
         for (int i = 0; i < Kms.size(); i++) {
             bbEntries.add(new Entry(Kms.get(i).getBulan(), Kms.get(i).getBb().floatValue()));
@@ -204,7 +204,7 @@ public class GrafikActivity extends AppCompatActivity {
 
         List<Km> Kms = intent.getParcelableArrayListExtra("KMS_KEY");
 
-        checkGejalaStunting(grafikModels);
+        checkGejalaStunting(grafikModels, Arrays.asList(readBoysWeightData()));
         List<Entry> TBentries = new ArrayList<>();
         for (int i = 0; i < Kms.size(); i++) {
             TBentries.add(new Entry(Kms.get(i).getBulan(), Kms.get(i).getTb().floatValue()));
@@ -301,7 +301,7 @@ public class GrafikActivity extends AppCompatActivity {
         List<Km> Kms = intent.getParcelableArrayListExtra("KMS_KEY");
         List<GrafikModel> grafikModels = Arrays.asList(readGirlWeightData());
 
-        checkGejalaStunting(grafikModels);
+        checkGejalaStunting(Arrays.asList(readGirlLenghtData()), grafikModels);
         List<Entry> bbEntries = new ArrayList<>();
         for (int i = 0; i < Kms.size(); i++) {
             bbEntries.add(new Entry(Kms.get(i).getBulan(), Kms.get(i).getBb().floatValue()));
@@ -394,7 +394,7 @@ public class GrafikActivity extends AppCompatActivity {
 
         List<Km> Kms = intent.getParcelableArrayListExtra("KMS_KEY");
 
-        checkGejalaStunting(grafikModels);
+        checkGejalaStunting(grafikModels, Arrays.asList(readGirlWeightData()));
         List<Entry> TBentries = new ArrayList<>();
         for (int i = 0; i < Kms.size(); i++) {
             TBentries.add(new Entry(Kms.get(i).getBulan(), Kms.get(i).getTb().floatValue()));
@@ -829,7 +829,7 @@ public class GrafikActivity extends AppCompatActivity {
         chart.invalidate();
     }
 
-    private void checkGejalaStunting(List<GrafikModel> grafikModels) {
+    private void checkGejalaStunting(List<GrafikModel> length, List<GrafikModel> weight) {
         Intent intent = getIntent();
 
         List<Km> Kms = intent.getParcelableArrayListExtra("KMS_KEY");
@@ -859,34 +859,26 @@ public class GrafikActivity extends AppCompatActivity {
                 }
             } else if (sessionManager.getUsiaBulanAnak() >= 12 && sessionManager.getUsiaBulanAnak() <= 24) {
                 Log.d(TAG, "checkGejalaStunting: 12 bulan lebih ");
-                stunting.setVisibility(View.VISIBLE);
-                checkGejalaStuntingDiatas12Bulan(grafikModels);
+                checkGejalaStuntingDiatas12Bulan(length, weight);
             }
 
         }
     }
 
-    private void checkGejalaStuntingDiatas12Bulan(List<GrafikModel> grafikModels) {
+    private void checkGejalaStuntingDiatas12Bulan(List<GrafikModel> length, List<GrafikModel> weight) {
         Intent intent = getIntent();
 
         List<Km> Kms = intent.getParcelableArrayListExtra("KMS_KEY");
 
-
-        String jenisChart = intent.getStringExtra("CHART_KEY");
-        if (jenisChart.equals("tb".toLowerCase())) {
-            for (int i = 0; i < grafikModels.size(); i++) {
-                if (grafikModels.get(i).getMonth() == Kms.get(Kms.size() - 1).getBulan()) {
-                    if (grafikModels.get(i).get5th() > Kms.get(i).getTb()) {
-                        Log.d(TAG, "checkGejalaStunting: Gejala Stunting terlihat III");
+            for (int i = 0; i < Kms.size(); i++) {
+                if (length.get(i).getMonth() == Kms.get(Kms.size() - 1).getBulan()) {
+                    if (length.get(i+1).get5th() > Kms.get(i).getTb()) {
                         stunting.setVisibility(View.VISIBLE);
                     }
                 }
 
-//                if (grafikModels.get(i).get2nd23rd() == Kms.get(i).getTb() || grafikModels.get(i).get10th() == Kms.get(i).getTb()){
-//
-//                }
+
             }
-        }
     }
 
     private GrafikModel[] readBoysLenghtData() {
