@@ -9,10 +9,10 @@
 
     <ImageView
         android:contentDescription="@string/background_login"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/background"
-        android:scaleType="fitXY"/>
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_100sdp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/logo"/>
     <TextView
         android:id="@+id/textSplashVersion"
         android:layout_width="wrap_content"

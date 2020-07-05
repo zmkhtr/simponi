@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -13,7 +14,7 @@ import com.budiyev.android.codescanner.DecodeCallback;
 import com.google.zxing.Result;
 
 public class QRScannerActivity extends AppCompatActivity {
-
+    private static final String TAG = "QRScannerActivity";
     private CodeScanner mCodeScanner;
     private static final int MY_PERMISSIONS_REQUEST_CAMERA = 555;
 
@@ -28,7 +29,8 @@ public class QRScannerActivity extends AppCompatActivity {
         mCodeScanner.setDecodeCallback(new DecodeCallback() {
             @Override
             public void onDecoded(@NonNull Result result) {
-                Toast.makeText(getApplicationContext(), result.getText(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), result.getText(), Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "onDecoded: " + result.getText());
             }
         });
 
